@@ -1,0 +1,415 @@
+import {
+  AppBar,
+  Avatar,
+  Backdrop,
+  Badge,
+  Box,
+  Button,
+  ButtonGroup,
+  CircularProgress,
+  Container,
+  Divider,
+  FormGroup,
+  Grid,
+  IconButton,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  TextField,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import LogoutIcon from "@mui/icons-material/Logout";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import InfoIcon from "@mui/icons-material/Info";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import SearchIcon from "@mui/icons-material/Search";
+
+const Header = () => {
+  const getToken = localStorage.getItem("Token");
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const getData = JSON.parse(localStorage.getItem("DATA"));
+  const [Loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+  const [carritoNumber, setCarritoNumber] = useState(0);
+
+  const CantidadCarrito = () => {
+    const getCarrito = JSON.parse(localStorage.getItem("Carrito"));
+    if (getCarrito != null) {
+      setCarritoNumber(getCarrito.length);
+    }
+  };
+  return (
+    <div>
+      <header>
+        <AppBar position="fixed" sx={{ background: "#2A303C" }}>
+          <Container maxWidth="xl">
+            <Toolbar disableGutters>
+              <Grid
+                container
+                direction={"row"}
+                justifyContent={"space-between"}
+                alignItems={"center"}
+                spacing={6}
+                sx={{
+                  display: { xs: "none", md: "flex" },
+                }}
+              >
+                <Grid item>
+                  <Button>ProductS</Button>
+                </Grid>
+                <Grid item xs>
+                  <ButtonGroup size="large" sx={{ width: "100%" }}>
+                    <Button size="small">Filter</Button>
+                    <Button size="small">
+                      <ArrowDropDownIcon />
+                    </Button>
+                    <TextField
+                      label={"Search"}
+                      placeholder="search..."
+                      size="small"
+                      type="text"
+                      fullWidth
+                    />
+                    <Button>
+                      <SearchIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+                <Grid item>
+                  {getToken == null ? (
+                    <Button
+                      variant="contained"
+                      onClick={() => {
+                        setLoading(!Loading);
+                        setTimeout(() => {
+                          setLoading(!Loading);
+                          navigate("login");
+                        }, 1000);
+                      }}
+                    >
+                      Login
+                    </Button>
+                  ) : (
+                    <></>
+                  )}
+                </Grid>
+              </Grid>
+              <Grid
+                container
+                direction={"column"}
+                justifyContent={"center"}
+                sx={{
+                  display: { xs: "flex", md: "none" },
+                  pb: 1,
+                }}
+              >
+                <Grid item>
+                  <Grid
+                    container
+                    direction={"row"}
+                    justifyContent={"space-between"}
+                    alignItems={"center"}
+                  >
+                    <Grid item>
+                      <IconButton
+                        size="large"
+                        onClick={handleOpenNavMenu}
+                        color="inherit"
+                      >
+                        =
+                      </IconButton>
+                    </Grid>
+                    <Grid item>
+                      <Button>ProductS</Button>
+                    </Grid>
+                    <Grid item>
+                      {getToken == null ? (
+                        <Button
+                          size="small"
+                          variant="contained"
+                          onClick={() => {
+                            setLoading(!Loading);
+                            setTimeout(() => {
+                              setLoading(!Loading);
+                              navigate("login");
+                            }, 1000);
+                          }}
+                        >
+                          Login
+                        </Button>
+                      ) : (
+                        <></>
+                      )}
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item>
+                  <ButtonGroup size="large" sx={{ width: "100%" }}>
+                    <TextField
+                      label={"Search"}
+                      placeholder="search..."
+                      size="small"
+                      type="text"
+                      fullWidth
+                    />
+                    <Button>
+                      <SearchIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+              </Grid>
+            </Toolbar>
+          </Container>
+        </AppBar>
+      </header>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={Loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    </div>
+  );
+};
+
+{
+  /**
+    <AppBar position="fixed" sx={{ background: "#2A303C" }}>
+          <Container maxWidth="xl">
+            <Toolbar disableGutters>
+              <Typography //tittle
+                variant="h6"
+                noWrap
+                component="a"
+                href="/"
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "monospace",
+                  fontWeight: 700,
+                  letterSpacing: ".1rem",
+                  color: "inherit",
+                  textDecoration: "none",
+                }}
+              >
+                ProductS
+              </Typography>
+
+              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleOpenNavMenu}
+                  color="inherit"
+                >
+                  =
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorElNav}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                  open={Boolean(anchorElNav)}
+                  onClose={handleCloseNavMenu}
+                  sx={{
+                    display: { xs: "block", md: "none" },
+                    "& .MuiPaper-root": {
+                      background: "#242933",
+                    },
+                  }}
+                >
+                  <MenuItem onClick={() => navigate("products")}>
+                    <IconButton>
+                      <ShoppingCartIcon />
+                    </IconButton>
+                    Productos
+                  </MenuItem>
+                  {getToken == null ? null : (
+                    <MenuItem onClick={() => navigate("carrito")}>
+                      <IconButton>
+                        <ShoppingCartIcon />
+                      </IconButton>
+                      Carrito
+                    </MenuItem>
+                  )}
+                  <Divider />
+                  <MenuItem onClick={() => navigate("products")}>
+                    <IconButton>
+                      <InfoIcon />
+                    </IconButton>
+                    About
+                  </MenuItem>
+                </Menu>
+              </Box>
+              <Typography //tittle
+                variant="h5"
+                noWrap
+                component="a"
+                href="/"
+                sx={{
+                  mr: 2,
+                  display: { xs: "flex", md: "none" },
+                  flexGrow: 1,
+                  fontFamily: "monospace",
+                  fontWeight: 700,
+                  letterSpacing: ".1rem",
+                  color: "inherit",
+                  textDecoration: "none",
+                }}
+              >
+                ProductS
+              </Typography>
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  display: { xs: "none", md: "flex" },
+                }}
+              >
+                <Button
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    display: "block",
+                    fontWeight: 550,
+                  }}
+                  href="/products"
+                >
+                  Productos
+                </Button>
+                <Button
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    display: "block",
+                    fontWeight: 550,
+                  }}
+                  disabled
+                >
+                  About
+                </Button>
+              </Box>
+              {getToken == null ? null : (
+                <Box
+                  sx={{ flexGrow: 0.03, display: { xs: "none", md: "flex" } }}
+                >
+                  <IconButton
+                    aria-label="cart"
+                    onClick={() => navigate("carrito")}
+                  >
+                    <Badge badgeContent={carritoNumber} color="secondary">
+                      <ShoppingCartIcon />
+                    </Badge>
+                  </IconButton>
+                </Box>
+              )}
+
+              <Box sx={{ flexGrow: 0 }}>
+                {getToken == null ? (
+                  <Button
+                    variant="outlined"
+                    onClick={() => {
+                      setLoading(!Loading);
+                      setTimeout(() => {
+                        setLoading(!Loading);
+                        navigate("login");
+                      }, 1000);
+                    }}
+                  >
+                    Login
+                  </Button>
+                ) : (
+                  <>
+                    <Tooltip title="Opciones">
+                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                        <Avatar alt="Remy Sharp">
+                          {getData.name.substr(0, 1)}
+                        </Avatar>
+                      </IconButton>
+                    </Tooltip>
+                    <Menu
+                      sx={{
+                        mt: "45px",
+                        "& .MuiPaper-root": {
+                          background: "#242933",
+                        },
+                      }}
+                      id="menu-appbar"
+                      anchorEl={anchorElUser}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      keepMounted
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      open={Boolean(anchorElUser)}
+                      onClose={handleCloseUserMenu}
+                    >
+                      <MenuItem
+                        onClick={() => {
+                          handleCloseUserMenu();
+                          navigate("profile");
+                        }}
+                      >
+                        <ListItemIcon>
+                          <AccountCircleIcon />
+                        </ListItemIcon>
+                        <Typography textAlign="center">Perfil</Typography>
+                      </MenuItem>
+                      <Divider />
+                      <MenuItem
+                        onClick={() => {
+                          setLoading(!Loading);
+                          Logout();
+                        }}
+                      >
+                        <ListItemIcon>
+                          <LogoutIcon />
+                        </ListItemIcon>
+                        <Typography textAlign="center">
+                          Cerrar sesion
+                        </Typography>
+                      </MenuItem>
+                    </Menu>
+                  </>
+                )}
+              </Box>
+            </Toolbar>
+          </Container>
+        </AppBar>
+     */
+}
+
+export default Header;
