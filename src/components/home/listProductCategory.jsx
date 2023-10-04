@@ -121,7 +121,7 @@ const ListProductCategory = () => {
   return (
     <>
       <Box sx={{ backgroundColor: "#22414B" }}>
-        <Grid container direction={"column"} p={8} spacing={4}>
+        <Grid container direction={"column"} p={7} spacing={4}>
           <Grid item>
             <Box
               sx={{
@@ -192,7 +192,7 @@ const ListProductCategory = () => {
       </Box>
 
       <Box>
-        <Grid container direction={"column"} p={8} spacing={4}>
+        <Grid container direction={"column"} p={7} spacing={4}>
           <Grid item>
             <Box
               sx={{
@@ -266,7 +266,7 @@ const ListProductCategory = () => {
         <Grid
           container
           direction={"row"}
-          p={8}
+          p={7}
           justifyContent={"space-between"}
         >
           <Grid item>
@@ -289,7 +289,7 @@ const ListProductCategory = () => {
             </Box>
 
             <ImageList
-              sx={{ width: "auto", maxWidth: 500, minWidth: 200, height: 400 }}
+              sx={{ width: "auto", maxWidth: 450, minWidth: 200, height: 400 }}
               cols={2}
             >
               {productS.map((item) => (
@@ -339,7 +339,7 @@ const ListProductCategory = () => {
             </Box>
 
             <ImageList
-              sx={{ width: "auto", maxWidth: 500, minWidth: 200, height: 400 }}
+              sx={{ width: "auto", maxWidth: 450, minWidth: 200, height: 400 }}
               cols={2}
             >
               {productS.map((item) => (
@@ -389,7 +389,7 @@ const ListProductCategory = () => {
             </Box>
 
             <ImageList
-              sx={{ width: "auto", maxWidth: 500, minWidth: 200, height: 400 }}
+              sx={{ width: "auto", maxWidth: 450, minWidth: 200, height: 400 }}
               cols={2}
             >
               {productS.map((item) => (
