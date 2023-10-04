@@ -11,6 +11,10 @@ import {
 import ListProductCategory from "./listProductCategory";
 import homeimg from "../../assets/homeimg2.png";
 import { useNavigate } from "react-router-dom";
+import Pc from "../../assets/Pc.png";
+import Pc1 from "../../assets/Pc1.jpg";
+import Pc2 from "../../assets/Pc2.png";
+import Pc3 from "../../assets/Pc3.jpg";
 
 const ButtonCustom = styled(Button)({
   fontWeight: 550,
@@ -32,11 +36,58 @@ const ButtonCustom = styled(Button)({
   },
 });
 const HomeView = () => {
+  const HeiWidh = 500;
   const navigate = useNavigate();
   //242933
   return (
     <div>
       <div style={{ width: "100%", height: "auto" }}>
+        <Box>
+          <Grid
+            container
+            direction={"row"}
+            justifyContent={"space-between"}
+            alignItems={"center"}
+            spacing={2}
+            sx={{ p: 8 }}
+          >
+            <Grid item xs={5}>
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Typography variant="h3" sx={{ fontWeight: 900 }} gutterBottom>
+                  Welcome to ProductS
+                </Typography>
+                <Typography variant="h6" color={"text.secondary"} gutterBottom>
+                  On this page you will find everything you need at your
+                  fingertips. From household items, as well as tools,
+                  consumables, video games and much more.{" "}
+                </Typography>
+              </Box>
+              <Button variant="contained">Buy Something</Button>
+            </Grid>
+            <Grid item xs={4.5}>
+              <img
+                src={Pc}
+                alt="test"
+                style={{
+                  borderRadius: 10,
+                  width: HeiWidh,
+                  height: HeiWidh,
+                  boxShadow: "13px 15px 0px 0px #000",
+                }}
+              />
+            </Grid>
+          </Grid>
+        </Box>
+      </div>
+      <Divider sx={{ background: "#1d212c", height: 10 }}/>
+      <ListProductCategory />
+    </div>
+  );
+};
+
+{
+  /**
+  <div style={{ width: "100%", height: "auto" }}>
         <Box
           sx={{
             alignItems: "center",
@@ -63,8 +114,7 @@ const HomeView = () => {
       </div>
       <Divider sx={{ background: "#1d212c", height: 10 }}></Divider>
       <ListProductCategory />
-    </div>
-  );
-};
+ */
+}
 
 export default HomeView;
