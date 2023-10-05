@@ -97,6 +97,25 @@ const Header = () => {
                   </ButtonGroup>
                 </Grid>
                 <Grid item>
+                  {getToken == null ? null : (
+                    <Box
+                      sx={{
+                        flexGrow: 0.03,
+                        display: { xs: "none", md: "flex" },
+                      }}
+                    >
+                      <IconButton
+                        aria-label="cart"
+                        onClick={() => navigate("carrito")}
+                      >
+                        <Badge badgeContent={carritoNumber} color="secondary">
+                          <ShoppingCartIcon />
+                        </Badge>
+                      </IconButton>
+                    </Box>
+                  )}
+                </Grid>
+                <Grid item>
                   {getToken == null ? (
                     <Button
                       variant="contained"
@@ -112,7 +131,67 @@ const Header = () => {
                       Login
                     </Button>
                   ) : (
-                    <></>
+                    <>
+                      <>
+                        <Tooltip title="Opciones">
+                          <IconButton
+                            onClick={handleOpenUserMenu}
+                            sx={{ p: 0 }}
+                          >
+                            <Avatar alt="Remy Sharp">
+                              {getData.name.substr(0, 1)}
+                            </Avatar>
+                          </IconButton>
+                        </Tooltip>
+                        <Menu
+                          sx={{
+                            mt: "45px",
+                            "& .MuiPaper-root": {
+                              background: "#242933",
+                            },
+                          }}
+                          id="menu-appbar"
+                          anchorEl={anchorElUser}
+                          anchorOrigin={{
+                            vertical: "top",
+                            horizontal: "right",
+                          }}
+                          keepMounted
+                          transformOrigin={{
+                            vertical: "top",
+                            horizontal: "right",
+                          }}
+                          open={Boolean(anchorElUser)}
+                          onClose={handleCloseUserMenu}
+                        >
+                          <MenuItem
+                            onClick={() => {
+                              handleCloseUserMenu();
+                              navigate("profile");
+                            }}
+                          >
+                            <ListItemIcon>
+                              <AccountCircleIcon />
+                            </ListItemIcon>
+                            <Typography textAlign="center">Perfil</Typography>
+                          </MenuItem>
+                          <Divider />
+                          <MenuItem
+                            onClick={() => {
+                              setLoading(!Loading);
+                              Logout();
+                            }}
+                          >
+                            <ListItemIcon>
+                              <LogoutIcon />
+                            </ListItemIcon>
+                            <Typography textAlign="center">
+                              Cerrar sesion
+                            </Typography>
+                          </MenuItem>
+                        </Menu>
+                      </>
+                    </>
                   )}
                 </Grid>
               </Grid>

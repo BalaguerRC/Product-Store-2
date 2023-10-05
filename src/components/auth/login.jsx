@@ -36,7 +36,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const Loged = async () => {
+  const Loged = () => {
     console.log(email, password);
     setLoading(!Loading);
     if (!email && !password) {
@@ -44,7 +44,7 @@ const Login = () => {
         setLoading(false);
         setError("Debe llenar todos los campos");
         console.log("test");
-      }, 2000);
+      }, 1000);
     } else {
       setTimeout(() => {
         setLoading(false);
@@ -79,7 +79,7 @@ const Login = () => {
             console.log(err);
             setError("Error fetch");
           });
-      }, 2000);
+      }, 1000);
     }
   };
   return (
@@ -105,15 +105,14 @@ const Login = () => {
                   setLoading(!Loading);
                   setTimeout(() => {
                     Loged();
-                  }, 2000);
+                  }, 1000);
                 }}
               >
                 <Grid container direction={"column"} spacing={2}>
                   <Grid item>
                     <Link
-                      component={"button"}
                       underline="hover"
-                      onClick={() => navigate("/")}
+                      href="/"
                     >
                       <Typography variant="button" color={"text.secondary"}>
                         {"<-Home"}
@@ -160,7 +159,7 @@ const Login = () => {
                   </Grid>
                   <Grid item>
                     {Loading ? (
-                      <LoadingButton variant="contained" loading fullWidth>
+                      <LoadingButton type="submit" variant="contained" loading fullWidth>
                         Sing Up
                       </LoadingButton>
                     ) : (

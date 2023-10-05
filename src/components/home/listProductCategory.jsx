@@ -162,7 +162,7 @@ const ListProductCategory = () => {
                         }}
                       />
                     </CardMedia>
-                    <CardContent sx={2}>
+                    <CardContent sx={{p:2}}>
                       <Box display={"flex"}>
                         <Typography gutterBottom variant="h5" component="div">
                           {data.name}
@@ -233,7 +233,7 @@ const ListProductCategory = () => {
                         }}
                       />
                     </CardMedia>
-                    <CardContent sx={2}>
+                    <CardContent sx={{p:2}}>
                       <Box display={"flex"}>
                         <Typography gutterBottom variant="h5" component="div">
                           {data.name}
