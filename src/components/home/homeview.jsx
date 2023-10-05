@@ -48,10 +48,10 @@ const HomeView = () => {
             direction={"row"}
             justifyContent={"space-between"}
             alignItems={"center"}
-            spacing={2}
+            spacing={3}
             sx={{ p: 8 }}
           >
-            <Grid item xs={5}>
+            <Grid item xs={5.5}>
               <Box sx={{ display: "flex", flexDirection: "column" }}>
                 <Typography variant="h3" sx={{ fontWeight: 900 }} gutterBottom>
                   Welcome to ProductS
@@ -62,7 +62,7 @@ const HomeView = () => {
                   consumables, video games and much more.{" "}
                 </Typography>
               </Box>
-              <Button variant="contained">Buy Something</Button>
+              <Button variant="contained" sx={{ borderRadius: 3 }}>Buy Something</Button>
             </Grid>
             <Grid item xs={4.5}>
               <img

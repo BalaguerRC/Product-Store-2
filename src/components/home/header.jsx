@@ -100,6 +100,7 @@ const Header = () => {
                   {getToken == null ? (
                     <Button
                       variant="contained"
+                      sx={{ borderRadius: 3 }}
                       onClick={() => {
                         setLoading(!Loading);
                         setTimeout(() => {

@@ -146,12 +146,12 @@ const ListProductCategory = () => {
               container
               direction={"row"}
               justifyContent={"center"}
-              spacing={5}
+              spacing={4}
               alignItems={"center"}
             >
               {productS.map((data) => (
                 <Grid item key={data.id}>
-                  <Card sx={{ maxWidth: 245, maxHeight: 400, borderRadius: 5 }}>
+                  <Card sx={{ maxWidth: 235, maxHeight: 400, borderRadius: 5 }}>
                     <CardMedia>
                       <img
                         src={data.img}
@@ -217,12 +217,12 @@ const ListProductCategory = () => {
               container
               direction={"row"}
               justifyContent={"center"}
-              spacing={5}
+              spacing={4}
               alignItems={"center"}
             >
               {productS.map((data) => (
                 <Grid item key={data.id}>
-                  <Card sx={{ maxWidth: 245, maxHeight: 400, borderRadius: 5 }}>
+                  <Card sx={{ maxWidth: 235, maxHeight: 400, borderRadius: 5 }}>
                     <CardMedia>
                       <img
                         src={data.img}
@@ -289,7 +289,7 @@ const ListProductCategory = () => {
             </Box>
 
             <ImageList
-              sx={{ width: "auto", maxWidth: 450, minWidth: 200, height: 400 }}
+              sx={{ width: "auto", maxWidth: 420, minWidth: 200, height: 400 }}
               cols={2}
             >
               {productS.map((item) => (
@@ -339,7 +339,7 @@ const ListProductCategory = () => {
             </Box>
 
             <ImageList
-              sx={{ width: "auto", maxWidth: 450, minWidth: 200, height: 400 }}
+              sx={{ width: "auto",maxWidth: 420, minWidth: 200, height: 400 }}
               cols={2}
             >
               {productS.map((item) => (
@@ -389,7 +389,7 @@ const ListProductCategory = () => {
             </Box>
 
             <ImageList
-              sx={{ width: "auto", maxWidth: 450, minWidth: 200, height: 400 }}
+              sx={{ width: "auto", maxWidth: 420, minWidth: 200, height: 400 }}
               cols={2}
             >
               {productS.map((item) => (

@@ -10,10 +10,14 @@ import {
   Link,
   Divider,
   Paper,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ButtonCustom } from "./style/Buttom";
+import LockIcon from "@mui/icons-material/Lock";
+import { PaperBox } from "../paperBox";
 
 const Login = () => {
   const [email, setEmail] = useState(null);
@@ -33,7 +37,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const Loged = async () => {
-    //console.log(email, password)
+    console.log(email, password);
     setLoading(!Loading);
     if (!email && !password) {
       setTimeout(() => {
@@ -44,12 +48,10 @@ const Login = () => {
     } else {
       setTimeout(() => {
         setLoading(false);
-        fetch(import.meta.env.VITE_URL+"/Users/login", {
+        fetch(import.meta.env.VITE_URL + "/Users/login", {
           method: "Post",
           headers: {
             "Content-Type": "application/json",
-            /*,
-                        "Authorization": ``*/
           },
           body: JSON.stringify({
             email: email,
@@ -82,15 +84,107 @@ const Login = () => {
   };
   return (
     <>
-      <Grid
-        container
-        justifyContent={"center"}
-        alignItems={"center"}
-        position={"absolute"}
-        top={"30%"}
-        p={2}
-      >
-        <Card
+      <div>
+        <Grid
+          container
+          direction={"row-reverse"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
+          <Grid item sm={5} sx={{ display: { xs: "none", md: " grid" } }}>
+            <PaperBox className="containerApp2"></PaperBox>
+          </Grid>
+          <Grid item xs={0.4} sx={{ display: { xs: "grid", md: " none" } }}>
+            <PaperBox className="containerApp2"></PaperBox>
+          </Grid>
+          <Grid item xs sm>
+            <Box sx={{ p: 5 }}>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setLoading(!Loading);
+                  setTimeout(() => {
+                    Loged();
+                  }, 2000);
+                }}
+              >
+                <Grid container direction={"column"} spacing={2}>
+                  <Grid item>
+                    <Link
+                      component={"button"}
+                      underline="hover"
+                      onClick={() => navigate("/")}
+                    >
+                      <Typography variant="button" color={"text.secondary"}>
+                        {"<-Home"}
+                      </Typography>
+                    </Link>
+                  </Grid>
+                  <Grid item sx={{ textAlign: "center", pb: 5 }}>
+                    <LockIcon />
+                    <Typography variant="h5" gutterBottom>
+                      Sign in
+                    </Typography>
+                    <Typography variant="caption" gutterBottom>
+                      to ProductS
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <TextField
+                      type="email"
+                      label="Email"
+                      required
+                      onChange={onChangeEmail}
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item>
+                    <TextField
+                      type="password"
+                      label="Password"
+                      required
+                      onChange={onChangePassword}
+                      fullWidth
+                    />
+                  </Grid>
+                  {error ? (
+                    <Typography variant="caption" color={"red"}>
+                      {error}
+                    </Typography>
+                  ) : null}
+                  <Grid item>
+                    <FormControlLabel
+                      control={<Checkbox />}
+                      label={"Remember me"}
+                    />
+                  </Grid>
+                  <Grid item>
+                    {Loading ? (
+                      <LoadingButton variant="contained" loading fullWidth>
+                        Sing Up
+                      </LoadingButton>
+                    ) : (
+                      <Button type="submit" variant="contained" fullWidth>
+                        Sing Up
+                      </Button>
+                    )}
+                  </Grid>
+                  <Grid item>
+                    <Link>Forgot my password</Link>
+                  </Grid>
+                </Grid>
+              </form>
+            </Box>
+          </Grid>
+        </Grid>
+      </div>
+    </>
+  );
+};
+
+{
+  /**
+  <Card
           variant="outlined"
           sx={{
             borderColor: "9C9C9C",
@@ -110,7 +204,10 @@ const Login = () => {
             }}
           >
             <Typography variant="button" component={"h3"} fontSize={20}>
-              Login
+              Sign in
+            </Typography>
+            <Typography variant="caption">
+              to ProductS
             </Typography>
             <Grid container>
               <Link
@@ -172,8 +269,115 @@ const Login = () => {
             )}
           </Grid>
         </Card>
-      </Grid>
-    </>
-  );
-};
+   */
+}
+
+{
+  /**
+  <Box
+        justifyContent={"center"}
+        alignItems={"center"}
+        sx={{ height: "100vh", display: { xs: "none", md: "grid" } }}
+      >
+        <Card
+          variant="outlined"
+          sx={{
+            borderColor: "9C9C9C",
+            borderTopWidth: 5,
+            background: "#242933",
+            boxShadow: "3px 5px 28px #000000",
+            width: 500,
+          }}
+        >
+          <form
+            style={{ width: "100%" }}
+            onSubmit={(e) => {
+              e.preventDefault();
+              setLoading(!Loading);
+              setTimeout(() => {
+                Loged();
+              }, 2000);
+            }}
+          >
+            <Grid container direction={"column"} p={4}>
+              <Grid item>
+                <Link
+                  component={"button"}
+                  underline="hover"
+                  onClick={() => navigate("/")}
+                >
+                  <Typography variant="button" color={"text.secondary"}>
+                    {"<-Home"}
+                  </Typography>
+                </Link>
+              </Grid>
+              <Grid item sx={{ textAlign: "center", pb: 5 }}>
+                <LockIcon />
+                <Typography variant="button" component={"h3"} fontSize={20}>
+                  Sign in
+                </Typography>
+                <Typography variant="caption">to ProductS</Typography>
+              </Grid>
+              <Grid item>
+                <TextField
+                  required
+                  label="Email"
+                  type="email"
+                  margin="normal"
+                  onChange={onChangeEmail}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  label="Password"
+                  type="password"
+                  fullWidth
+                  margin="normal"
+                  required
+                  onChange={onChangePassword}
+                />
+              </Grid>
+              <Grid item>
+                {error ? (
+                  <Typography variant="caption" color={"red"}>
+                    {error}
+                  </Typography>
+                ) : null}
+              </Grid>
+              <Grid item>
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label={"Remember me"}
+                />
+              </Grid>
+              <Grid item pt={1}>
+                {Loading ? (
+                  <LoadingButton
+                    loading
+                    variant="outlined"
+                    sx={{ width: "100%" }}
+                  >
+                    Login
+                  </LoadingButton>
+                ) : (
+                  <ButtonCustom
+                    sx={{ width: "100%" }}
+                    variant="contained"
+                    onClick={Loged}
+                    type="submit"
+                  >
+                    Login
+                  </ButtonCustom>
+                )}
+              </Grid>
+              <Grid item pt={1}>
+                <Link>Forgot my password</Link>
+              </Grid>
+            </Grid>
+          </form>
+        </Card>
+      </Box>
+   */
+}
 export default Login;

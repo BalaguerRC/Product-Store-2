@@ -1,3 +1,10 @@
 body {
     background-color: #1d212c;
 }
+
+.containerApp2{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
