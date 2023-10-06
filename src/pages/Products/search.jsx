@@ -1,6 +1,6 @@
 import { Box, Button, Divider, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Navigate, Outlet, useNavigate, useParams } from "react-router-dom";
 import Products from "../../components/products/products";
 
 const Search = () => {
@@ -8,14 +8,15 @@ const Search = () => {
   return (
     <div>
       <Grid container direction={"row"} justifyContent={"space-between"}>
-        <Grid item xs={2} sx={{ p: 5 }}>
+        <Grid item xs={2.5} sx={{ p: 4 }}>
           <Box
             display={"flex"}
             flexDirection={"column"}
-            justifyContent={"left"}
+            justifyContent={"center"}
+            textAlign={"center"}
           >
             <Typography variant="h5" gutterBottom>
-              All Categories
+              Popular Categories
             </Typography>
             <Divider />
             <Button
@@ -37,7 +38,7 @@ const Search = () => {
             </Button>
           </Box>
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={9.5}>
           <Outlet />
         </Grid>
       </Grid>
@@ -46,3 +47,7 @@ const Search = () => {
 };
 
 export default Search;
+
+export const RedirectSearch = () => {
+  return <Navigate to={"/search/all"} replace={true}/>;
+};

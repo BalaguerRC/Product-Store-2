@@ -1,7 +1,9 @@
 import {
   Box,
+  Button,
   Card,
   CardActionArea,
+  CardActions,
   CardContent,
   CardMedia,
   Chip,
@@ -18,11 +20,56 @@ const ProductItem = ({ id, name, price, category, image }) => {
 
   return (
     <>
-      <Card
+      <Grid item>
+        <Card sx={{ maxWidth: 335, maxHeight: 500, borderRadius: 5 }}>
+          <CardMedia>
+            <img
+              src={image == null ? desconocido : image}
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: 5,
+              }}
+            />
+          </CardMedia>
+          <CardContent sx={{ p: 2 }}>
+            <Box display={"flex"}>
+              <Typography gutterBottom variant="h5" component="div">
+                {name}
+              </Typography>
+              <Chip
+                label={category}
+                color="secondary"
+                sx={{ ml: 2 }}
+                size="small"
+              />
+            </Box>
+          </CardContent>
+          <CardActions sx={{ justifyContent: "space-between", p: 2 }}>
+            <Typography variant="body2" color="text.secondary">
+              RD$ {price}
+            </Typography>
+            <Button
+              variant="contained"
+              sx={{ borderRadius: 3 }}
+              href={"/searchP/details/" + id}
+            >
+              View
+            </Button>
+          </CardActions>
+        </Card>
+      </Grid>
+    </>
+  );
+};
+
+{
+  /**
+  <Card
         sx={{ maxWidth: 345, minWidth: 100, backgroundColor: "#2b3246" }}
         variant="outlined"
       >
-        <CardActionArea onClick={() => navigate("/products/details/" + id)}>
+        <CardActionArea onClick={() => navigate("/searchP/details/" + id)}>
           <CardMedia
             component="img"
             height="140"
@@ -56,8 +103,6 @@ const ProductItem = ({ id, name, price, category, image }) => {
           </CardContent>
         </CardActionArea>
       </Card>
-    </>
-  );
-};
-
+   */
+}
 export default ProductItem;

@@ -13,7 +13,7 @@ import Perfil from "./pages/auth/Perfil/perfil";
 import { AuthLayout, LoginLayout } from "./components/AuthLayout.jsx";
 import Historia from "./pages/auth/Perfil/historia";
 import Bills from "./pages/Products/bills";
-import Search from "./pages/Products/search";
+import Search, {RedirectSearch } from "./pages/Products/search";
 import ProductsCategory from "./pages/Products/productsCategory";
 import SearchProducts from "./components/products/searchProducts";
 
@@ -48,7 +48,7 @@ function App() {
           children: [
             {
               index: true,
-              element: <Products/>
+              element: <RedirectSearch />,
             },
             {
               path: ":category",
@@ -59,6 +59,10 @@ function App() {
               element: <SearchProducts />,
             },
           ],
+        },
+        {
+          path: "searchP/details/:id",
+          element: <Details />,
         },
         {
           path: "products",

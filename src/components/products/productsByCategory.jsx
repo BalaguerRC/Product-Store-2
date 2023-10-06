@@ -132,7 +132,7 @@ const ProductsByCategory = () => {
                           <ProductItem
                             id={item.id}
                             name={item.name}
-                            price={item.precio}
+                            price={item.price}
                             category={item.category}
                             image={item.image}
                           />
