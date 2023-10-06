@@ -58,6 +58,33 @@ const productS = [
   },
 ];
 
+const productS2 = [
+  {
+    id: 1,
+    name: "test1",
+    price: 200,
+    img: desconocido,
+  },
+  {
+    id: 2,
+    name: "test2",
+    price: 200,
+    img: desconocido,
+  },
+  {
+    id: 3,
+    name: "test3",
+    price: 200,
+    img: desconocido,
+  },
+  {
+    id: 4,
+    name: "test4",
+    price: 200,
+    img: desconocido,
+  },
+];
+
 const ListProductCategory = () => {
   const getToken = localStorage.getItem("Token");
 
@@ -289,10 +316,10 @@ const ListProductCategory = () => {
             </Box>
 
             <ImageList
-              sx={{ width: "auto", maxWidth: 420, minWidth: 200, height: 400 }}
+              sx={{ width: "auto", maxWidth: 410, maxHeight: 420,height:"100%" }}
               cols={2}
             >
-              {productS.map((item) => (
+              {productS2.map((item) => (
                 <ImageListItem key={item.id}>
                   <img
                     src={`${
@@ -339,10 +366,10 @@ const ListProductCategory = () => {
             </Box>
 
             <ImageList
-              sx={{ width: "auto",maxWidth: 420, minWidth: 200, height: 400 }}
+              sx={{ width: "auto", maxWidth: 410, maxHeight: 420,height:"100%" }}
               cols={2}
             >
-              {productS.map((item) => (
+              {productS2.map((item) => (
                 <ImageListItem key={item.id}>
                   <img
                     src={`${
@@ -389,10 +416,10 @@ const ListProductCategory = () => {
             </Box>
 
             <ImageList
-              sx={{ width: "auto", maxWidth: 420, minWidth: 200, height: 400 }}
+              sx={{ width: "auto", maxWidth: 410, maxHeight: 420,height:"100%"  }}
               cols={2}
             >
-              {productS.map((item) => (
+              {productS2.map((item) => (
                 <ImageListItem key={item.id}>
                   <img
                     src={`${

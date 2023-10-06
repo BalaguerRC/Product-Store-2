@@ -36,6 +36,7 @@ const Header = () => {
   const getData = JSON.parse(localStorage.getItem("DATA"));
   const [Loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [name, setName] = useState("a");
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -76,7 +77,7 @@ const Header = () => {
                 }}
               >
                 <Grid item>
-                  <Button>ProductS</Button>
+                  <Button href="/">ProductS</Button>
                 </Grid>
                 <Grid item xs>
                   <ButtonGroup size="large" sx={{ width: "100%" }}>
@@ -89,9 +90,17 @@ const Header = () => {
                       placeholder="search..."
                       size="small"
                       type="text"
+                      onChange={(e) => setName(e.currentTarget.value)}
                       fullWidth
                     />
-                    <Button>
+                    <Button
+                      href="#"
+                      onClick={() =>
+                        name == ""
+                          ? navigate("/search/all/a")
+                          : navigate("/search/all/" + name)
+                      }
+                    >
                       <SearchIcon fontSize="small" />
                     </Button>
                   </ButtonGroup>

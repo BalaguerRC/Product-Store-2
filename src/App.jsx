@@ -13,6 +13,9 @@ import Perfil from "./pages/auth/Perfil/perfil";
 import { AuthLayout, LoginLayout } from "./components/AuthLayout.jsx";
 import Historia from "./pages/auth/Perfil/historia";
 import Bills from "./pages/Products/bills";
+import Search from "./pages/Products/search";
+import ProductsCategory from "./pages/Products/productsCategory";
+import SearchProducts from "./components/products/searchProducts";
 
 function App() {
   //const [count, setCount] = useState(0)
@@ -29,7 +32,7 @@ function App() {
       },
     },
   });
-  
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -38,6 +41,24 @@ function App() {
         {
           index: true,
           element: <HomeView />,
+        },
+        {
+          path: "search",
+          element: <Search />,
+          children: [
+            {
+              index: true,
+              element: <Products/>
+            },
+            {
+              path: ":category",
+              element: <ProductsCategory />,
+            },
+            {
+              path: ":category/:name",
+              element: <SearchProducts />,
+            },
+          ],
         },
         {
           path: "products",
