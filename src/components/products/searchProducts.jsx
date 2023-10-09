@@ -102,12 +102,17 @@ const SearchProducts = () => {
   const { category, name } = useParams();
   const [Loading, setLoading] = useState(false);
 
+  const GetSearch = () => {
+    console.log("name", name, "category:", category);
+  };
+
   useEffect(() => {
     setLoading(true);
+    GetSearch();
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, []);
+  }, [name]);
   return (
     <div>
       <Box pt={2}>
@@ -121,7 +126,8 @@ const SearchProducts = () => {
             <Grid container direction={"row"} spacing={1}>
               <Grid item>
                 <Typography variant="h6" gutterBottom>
-                  Category: <Typography variant="button">{category}</Typography> and
+                  Category: <Typography variant="button">{category}</Typography>{" "}
+                  and
                 </Typography>
               </Grid>
               <Grid item>

@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import desconocido from "../../assets/signo.png";
-import { Box, Container, Grid, Pagination, Skeleton, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  Pagination,
+  Skeleton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import ProductItem from "./productItem";
 
-const Product = [
+const Product1 = [
   {
     id: 1,
     name: "test1",
@@ -92,15 +100,56 @@ const Product = [
 ];
 const ProductsByCategory = () => {
   const { category } = useParams();
+  const [totalPage, setTotalPage] = useState(1);
+  const [page, setPage] = useState(1);
 
+  const [Product, setProduct] = useState([]);
   const [Loading, setLoading] = useState(false);
+
+  const response = () => {
+    //setLoading(false)
+    fetch(import.meta.env.VITE_URL + "/ProductsPag/getProductClient", {
+      method: "GET",
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setProduct(data.data);
+        setTotalPage(data.totalPages);
+      })
+      .catch((err) => {
+        console.log(err);
+        seTError(!Error);
+      });
+  };
 
   useEffect(() => {
     setLoading(true);
+    response();
     setTimeout(() => {
       setLoading(false);
     }, 1000);
   }, []);
+
+  const CurrentPage = (value) => {
+    fetch(
+      `${
+        import.meta.env.VITE_URL
+      }/ProductsPag/getProductClient?pageNumber=${value}&pageSize=12`,
+      {
+        method: "GET",
+      }
+    )
+      .then((resp) => resp.json())
+      .then((data) => {
+        setProduct(data.data);
+      })
+      .catch((err) => console.log(err));
+  };
+  const handleChange = (event, value) => {
+    setPage(value);
+    console.log(value);
+    CurrentPage(value);
+  };
 
   return (
     <div>
@@ -112,7 +161,9 @@ const ProductsByCategory = () => {
           alignItems="center"
         >
           <Container>
-            <Typography variant="h5" gutterBottom>Category: <Typography variant="button" >{category}</Typography></Typography>
+            <Typography variant="h5" gutterBottom>
+              Category: <Typography variant="button">{category}</Typography>
+            </Typography>
             <Box paddingTop={2} justifyContent="center">
               <Grid container item spacing={3}>
                 {Product &&
@@ -132,7 +183,7 @@ const ProductsByCategory = () => {
                           <ProductItem
                             id={item.id}
                             name={item.name}
-                            price={item.price}
+                            price={item.precio}
                             category={item.category}
                             image={item.image}
                           />
@@ -158,8 +209,9 @@ const ProductsByCategory = () => {
               }}
               color="secondary"
               size="large"
-              count={2}
-              page={1}
+              count={totalPage}
+              page={page}
+              onChange={handleChange}
             />
           </Stack>
         </Grid>

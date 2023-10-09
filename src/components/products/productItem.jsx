@@ -9,6 +9,7 @@ import {
   Chip,
   Divider,
   Grid,
+  ImageListItem,
   Stack,
   Typography,
 } from "@mui/material";
@@ -21,20 +22,30 @@ const ProductItem = ({ id, name, price, category, image }) => {
   return (
     <>
       <Grid item>
-        <Card sx={{ maxWidth: 335, maxHeight: 500, borderRadius: 5 }}>
-          <CardMedia>
-            <img
-              src={image == null ? desconocido : image}
-              style={{
-                width: "100%",
-                height: "100%",
-                borderRadius: 5,
-              }}
-            />
+        <Card
+          sx={{
+            maxWidth: 335,
+            maxHeight: 500,
+            borderRadius: 5,
+          }}
+        >
+          <CardMedia
+            sx={{ height: 280 }}
+            image={image == null ? desconocido : image}
+            title="green iguana"
+          >
+            {/*<ImageListItem>
+              <img
+                src={image == null ? desconocido : image}
+                style={{
+                  borderRadius: 5,
+                }}
+              />
+            </ImageListItem>*/}
           </CardMedia>
           <CardContent sx={{ p: 2 }}>
             <Box display={"flex"}>
-              <Typography gutterBottom variant="h5" component="div">
+              <Typography gutterBottom variant="h5" component="div" noWrap>
                 {name}
               </Typography>
               <Chip
