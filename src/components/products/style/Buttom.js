@@ -4,6 +4,7 @@ export const ButtonCustom = styled(Button)({
   fontWeight: 550,
   padding: "6px 12px",
   backgroundColor: "#661AE6",
+  borderRadius:3,
   color: "white",
   "&:hover": {
     backgroundColor: "#8146eb",

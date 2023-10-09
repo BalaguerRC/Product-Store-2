@@ -245,15 +245,15 @@ const Details = () => {
     }, 1000);
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     MaxId();
-  }, []);
+  }, []);*/
 
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      <Paper variant="elevation">
+      <Box>
         <Box>
           <Typography
             variant="h4"
@@ -275,7 +275,7 @@ const Details = () => {
           justifyContent={"space-between"}
           sx={{ p: 5 }}
         >
-          <Grid item xs={7}>
+          <Grid item xs={8}>
             <Grid
               container
               direction={"column"}
@@ -303,12 +303,21 @@ const Details = () => {
               </Grid>
               <Grid item>
                 <Box>
-                  <Typography variant="h6" gutterBottom>
-                    Opiniones
+                  <Typography
+                    variant="h6"
+                    sx={{ fontWeight: 550 }}
+                    gutterBottom
+                  >
+                    Opinions
                   </Typography>
                   <Divider sx={{ mb: 2 }}></Divider>
                   <FormControl
-                    sx={{ display: "flex", flexDirection: "row", mb: 2 }}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      mb: 2,
+                      borderRadius: 3,
+                    }}
                   >
                     <TextField
                       label={"Send an Opinion"}
@@ -316,8 +325,17 @@ const Details = () => {
                       placeholder="exmaple..."
                       fullWidth
                       size="small"
+                      sx={{
+                        ".css-p57cpg-MuiInputBase-root-MuiOutlinedInput-root": {
+                          borderRadius: 3,
+                        },
+                      }}
                     />
-                    <Button variant="contained" size="small">
+                    <Button
+                      variant="contained"
+                      size="small"
+                      sx={{ borderRadius: 3 }}
+                    >
                       Send
                     </Button>
                   </FormControl>
@@ -338,7 +356,7 @@ const Details = () => {
             </Grid>
           </Grid>
           <Grid item xs={4}>
-            <Paper variant="outlined" sx={{ p: 2 }}>
+            <Paper variant="outlined" sx={{ p: 2, borderRadius: 5 }}>
               <DetailDescription
                 id={Product.id}
                 name={Product.name}
@@ -354,14 +372,22 @@ const Details = () => {
                 direction={"column"}
                 spacing={1}
                 justifyContent={"center"}
+                pt={2}
               >
                 <Grid item>
                   {Product.quantity == 0 ? (
-                    <Button variant="contained" size="small" fullWidth disabled>
+                    <Button
+                      sx={{ borderRadius: 3 }}
+                      variant="contained"
+                      size="small"
+                      fullWidth
+                      disabled
+                    >
                       Buy
                     </Button>
                   ) : (
                     <ButtonCustom
+                      sx={{ borderRadius: 3 }}
                       variant="contained"
                       size="small"
                       onClick={() => {
@@ -379,7 +405,7 @@ const Details = () => {
                     <Button
                       variant="outlined"
                       size="small"
-                      sx={{ marginLeft: 1 }}
+                      sx={{ borderRadius: 3 }}
                       startIcon={<AddShoppingCartIcon />}
                       fullWidth
                       disabled
@@ -391,6 +417,7 @@ const Details = () => {
                       variant="outlined"
                       size="small"
                       fullWidth
+                      sx={{ borderRadius: 3 }}
                       startIcon={<AddShoppingCartIcon />}
                       onClick={() => {
                         const data = {
@@ -413,7 +440,7 @@ const Details = () => {
             </Paper>
           </Grid>
         </Grid>
-      </Paper>
+      </Box>
 
       <Snackbar
         open={open}

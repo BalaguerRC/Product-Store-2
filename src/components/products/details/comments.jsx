@@ -12,7 +12,7 @@ import {
 
 const Comments = ({ name, comment, date, value }) => {
   return (
-    <Paper variant="outlined" sx={{ p: 2 }}>
+    <Paper variant="outlined" sx={{ p: 2, borderRadius: 5 }}>
       <Grid container direction={"column"}>
         <Grid item>
           <Typography>{name}</Typography>
@@ -29,11 +29,11 @@ const Comments = ({ name, comment, date, value }) => {
           </Typography>
         </Grid>
         <Grid item>
-          <ButtonGroup variant="outlined" size="small">
-            <Button >
+          <ButtonGroup variant="outlined" size="small" >
+            <Button sx={{ borderRadius: 3 }}>
               <ThumbUpIcon />
             </Button>
-            <Button >
+            <Button sx={{ borderRadius: 3 }}>
               <ThumbDownAltIcon />
             </Button>
           </ButtonGroup>
