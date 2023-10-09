@@ -10,6 +10,7 @@ import {
   Breadcrumbs,
   Button,
   ButtonBase,
+  ButtonGroup,
   Card,
   CardMedia,
   CircularProgress,
@@ -28,8 +29,10 @@ import {
   Menu,
   MenuItem,
   Paper,
+  Rating,
   Select,
   Snackbar,
+  TextField,
   Typography,
   styled,
 } from "@mui/material";
@@ -37,7 +40,24 @@ import desconocido from "../../assets/signo.png";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AddCar } from "../car/car";
-
+import Comments from "./details/comments";
+import DetailDescription from "./details/detailDescription";
+const Comentarios = [
+  {
+    id: 1,
+    name: "Marcelo Arias",
+    comment: "Buen producto, lo recibi junto a una chankleta.",
+    value: 5,
+    date: "11/10/2023",
+  },
+  {
+    id: 2,
+    name: "Jony Bravo",
+    comment: "Porqueria, me entregaron una pepsi.",
+    value: 1,
+    date: "11/10/2023",
+  },
+];
 const Details = () => {
   const { id } = useParams();
 
@@ -57,7 +77,7 @@ const Details = () => {
   };
 
   const response = async () => {
-    await fetch(import.meta.env.VITE_URL+"/Products/" + id, {
+    await fetch(import.meta.env.VITE_URL + "/Products/" + id, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + getToken,
@@ -233,7 +253,253 @@ const Details = () => {
 
   return (
     <>
-      <Box>
+      <Paper variant="elevation">
+        <Box>
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{
+              display: "flex",
+              fontWeight: 700,
+            }}
+          >
+            <Button variant="text" onClick={() => navigate("/products")}>
+              {"< - "}
+            </Button>
+            Detalles del Producto
+          </Typography>
+        </Box>
+        <Grid
+          container
+          direction={"row"}
+          justifyContent={"space-between"}
+          sx={{ p: 5 }}
+        >
+          <Grid item xs={7}>
+            <Grid
+              container
+              direction={"column"}
+              justifyContent={"center"}
+              p={1}
+            >
+              <Grid item>
+                <Box
+                  display={"flex"}
+                  flexDirection={"row"}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                  p={2}
+                >
+                  <img
+                    src={Product.image == null ? desconocido : Product.image}
+                    alt="test"
+                    style={{
+                      borderRadius: 10,
+                      width: 500,
+                      height: 500,
+                    }}
+                  />
+                </Box>
+              </Grid>
+              <Grid item>
+                <Box>
+                  <Typography variant="h6" gutterBottom>
+                    Opiniones
+                  </Typography>
+                  <Divider sx={{ mb: 2 }}></Divider>
+                  <FormControl
+                    sx={{ display: "flex", flexDirection: "row", mb: 2 }}
+                  >
+                    <TextField
+                      label={"Send an Opinion"}
+                      variant="outlined"
+                      placeholder="exmaple..."
+                      fullWidth
+                      size="small"
+                    />
+                    <Button variant="contained" size="small">
+                      Send
+                    </Button>
+                  </FormControl>
+                  <Grid container direction={"column"} spacing={2}>
+                    {Comentarios.map((items) => (
+                      <Grid item key={items.id} xs>
+                        <Comments
+                          name={items.name}
+                          comment={items.comment}
+                          date={items.date}
+                          value={items.value}
+                        />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Box>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={4}>
+            <Paper variant="outlined" sx={{ p: 2 }}>
+              <DetailDescription
+                id={Product.id}
+                name={Product.name}
+                description={Product.description}
+                quantity={Product.quantity}
+                category={Product.category}
+                precio={Product.precio}
+                author={Product.author}
+                date={Product.date}
+              />
+              <Grid
+                container
+                direction={"column"}
+                spacing={1}
+                justifyContent={"center"}
+              >
+                <Grid item>
+                  {Product.quantity == 0 ? (
+                    <Button variant="contained" size="small" fullWidth disabled>
+                      Buy
+                    </Button>
+                  ) : (
+                    <ButtonCustom
+                      variant="contained"
+                      size="small"
+                      onClick={() => {
+                        setOpenDialog(true);
+                      }}
+                      fullWidth
+                    >
+                      Buy
+                    </ButtonCustom>
+                  )}
+                </Grid>
+
+                <Grid item>
+                  {Product.quantity == 0 ? (
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      sx={{ marginLeft: 1 }}
+                      startIcon={<AddShoppingCartIcon />}
+                      fullWidth
+                      disabled
+                    >
+                      Save
+                    </Button>
+                  ) : (
+                    <ButtonCustomOutlined
+                      variant="outlined"
+                      size="small"
+                      fullWidth
+                      startIcon={<AddShoppingCartIcon />}
+                      onClick={() => {
+                        const data = {
+                          id: id,
+                          name: Product.name,
+                          image: Product.image,
+                          precio: Product.precio,
+                          quantity: Product.quantity,
+                        };
+                        setLoading2(!Loading2);
+                        AddCarrito(data);
+                      }}
+                    >
+                      Save
+                      {Loading2 ? <CircularProgress size={20} /> : null}
+                    </ButtonCustomOutlined>
+                  )}
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+        </Grid>
+      </Paper>
+
+      <Snackbar
+        open={open}
+        autoHideDuration={2000}
+        onClose={() => setOpen(!open)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert severity="success">Guardado en Carrito</Alert>
+      </Snackbar>
+      <Snackbar
+        open={openAlert}
+        autoHideDuration={2000}
+        onClose={() => setOpenAlert(!openAlert)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert severity="success">Comprado </Alert>
+      </Snackbar>
+      {/**Dialog */}
+      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+        <DialogTitle>Comprar</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Esta seguro de comprar este producto?
+          </DialogContentText>
+          <DialogContentText>
+            - Si desea, especifique la cantidad que desea comprar:
+          </DialogContentText>
+          <FormControl sx={{ m: 1, minWidth: 120 }} variant="standard">
+            <InputLabel id="demo-simple-select-autowidth-label">
+              Cantidad
+            </InputLabel>
+            <Select
+              autoWidth
+              onChange={(event) => setCantidadProducto(event.target.value)}
+              value={CantidadProducto}
+            >
+              <MenuItem value={1}>1</MenuItem>
+              {Cantidad &&
+                Cantidad.map((item, index) => {
+                  //console.log(item[index])
+                  if (item <= 10) {
+                    if (item === 1) {
+                      null;
+                    } else {
+                      return (
+                        <MenuItem value={item} key={index}>
+                          {item} {item === 10 ? "MAX" : null}
+                        </MenuItem>
+                      );
+                    }
+                  } else {
+                    null;
+                  }
+                })}
+              {/*Cantidad && CantidadSuma2()*/}
+            </Select>
+          </FormControl>
+        </DialogContent>
+        <DialogActions>
+          {Loading ? <CircularProgress size={30} /> : null}
+          <Button
+            onClick={() => {
+              setLoading(!Loading);
+              //localStorage.removeItem("Report")
+              BuyProduct(
+                Product.id,
+                Product.name,
+                CantidadProducto,
+                Product.precio,
+                getDataUser.id
+              );
+              //console.log(CantidadProducto)
+            }}
+          >
+            Comprar
+          </Button>
+          <Button onClick={() => setOpenDialog(false)}>Cancelar</Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  );
+};
+
+{
+  /**
+  <Box>
         <Grid
           container
           direction="column"
@@ -502,86 +768,6 @@ const Details = () => {
           </Container>
         </Grid>
       </Box>
-      <Snackbar
-        open={open}
-        autoHideDuration={2000}
-        onClose={() => setOpen(!open)}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-      >
-        <Alert severity="success">Guardado en Carrito</Alert>
-      </Snackbar>
-      <Snackbar
-        open={openAlert}
-        autoHideDuration={2000}
-        onClose={() => setOpenAlert(!openAlert)}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-      >
-        <Alert severity="success">Comprado </Alert>
-      </Snackbar>
-      {/**Dialog */}
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-        <DialogTitle>Comprar</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Esta seguro de comprar este producto?
-          </DialogContentText>
-          <DialogContentText>
-            - Si desea, especifique la cantidad que desea comprar:
-          </DialogContentText>
-          <FormControl sx={{ m: 1, minWidth: 120 }} variant="standard">
-            <InputLabel id="demo-simple-select-autowidth-label">
-              Cantidad
-            </InputLabel>
-            <Select
-              autoWidth
-              onChange={(event) => setCantidadProducto(event.target.value)}
-              value={CantidadProducto}
-            >
-              <MenuItem value={1}>1</MenuItem>
-              {Cantidad &&
-                Cantidad.map((item, index) => {
-                  //console.log(item[index])
-                  if (item <= 10) {
-                    if (item === 1) {
-                      null;
-                    } else {
-                      return (
-                        <MenuItem value={item} key={index}>
-                          {item} {item === 10 ? "MAX" : null}
-                        </MenuItem>
-                      );
-                    }
-                  } else {
-                    null;
-                  }
-                })}
-              {/*Cantidad && CantidadSuma2()*/}
-            </Select>
-          </FormControl>
-        </DialogContent>
-        <DialogActions>
-          {Loading ? <CircularProgress size={30} /> : null}
-          <Button
-            onClick={() => {
-              setLoading(!Loading);
-              //localStorage.removeItem("Report")
-              BuyProduct(
-                Product.id,
-                Product.name,
-                CantidadProducto,
-                Product.precio,
-                getDataUser.id
-              );
-              //console.log(CantidadProducto)
-            }}
-          >
-            Comprar
-          </Button>
-          <Button onClick={() => setOpenDialog(false)}>Cancelar</Button>
-        </DialogActions>
-      </Dialog>
-    </>
-  );
-};
-
+   */
+}
 export default Details;

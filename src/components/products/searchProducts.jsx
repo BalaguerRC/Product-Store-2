@@ -113,6 +113,7 @@ const SearchProducts = () => {
       setLoading(false);
     }, 1000);
   }, [name]);
+  
   return (
     <div>
       <Box pt={2}>
