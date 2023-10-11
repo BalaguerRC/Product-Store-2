@@ -101,19 +101,87 @@ const Product = [
 const SearchProducts = () => {
   const { category, name } = useParams();
   const [Loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([]);
 
+  const getToken = localStorage.getItem("Token");
   const GetSearch = () => {
     console.log("name", name, "category:", category);
   };
 
+  const [totalPage, setTotalPage] = useState(1);
+  const [page, setPage] = useState(1);
+
+  const response = () => {
+    //setLoading(false)
+    fetch(import.meta.env.VITE_URL + "/ProductsPag/getProductClient", {
+      method: "GET",
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setProducts(data.data);
+        setTotalPage(data.totalPages);
+      })
+      .catch((err) => {
+        console.log(err);
+        seTError(!Error);
+      });
+  };
+
+  const CurrentPage = async(value) => {
+    await fetch(
+      `${
+        import.meta.env.VITE_URL
+      }/ProductsPag/getProductClient?pageNumber=${value}&pageSize=12`,
+      {
+        method: "GET",
+      }
+    )
+      .then((resp) => resp.json())
+      .then((data) => {
+        setProducts(data.data);
+      })
+      .catch((err) => console.log(err));
+  };
+  const handleChange = (event, value) => {
+    setPage(value);
+    console.log(value)
+    CurrentPage(value);
+  };
+
+  const Filter = (idcategory) => {
+    if (idcategory === null) {
+      response();
+    } else {
+      fetch(import.meta.env.VITE_URL + "/ProductsById/" + idcategory, {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + getToken,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          //console.log("data: "+data.data)
+          if (JSON.stringify(data.data) == undefined) {
+            console.log("Not Found");
+            response();
+          } else {
+            console.log(data);
+            setProducts(data.data);
+          }
+        })
+        .catch((err) => console.log("Error: " + err));
+    }
+  };
+
   useEffect(() => {
+    Filter(category);
     setLoading(true);
     GetSearch();
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, [name]);
-  
+  }, [name, category]);
+
   return (
     <div>
       <Box pt={2}>
@@ -140,31 +208,30 @@ const SearchProducts = () => {
 
             <Box paddingTop={2} justifyContent="center">
               <Grid container item spacing={3}>
-                {Product &&
-                  Product.map((item, value) => {
-                    return (
-                      <Grid item xs={6} md={3} key={item.id}>
-                        {Loading ? (
-                          <Stack
-                            spacing={1}
-                            sx={{ maxWidth: 345, minWidth: 100 }}
-                          >
-                            <Skeleton variant="rounded" height={140} />
-                            <Skeleton variant="rectangular" width={110} />
-                            <Skeleton variant="rounded" width={110} />
-                          </Stack>
-                        ) : (
-                          <ProductItem
-                            id={item.id}
-                            name={item.name}
-                            price={item.precio}
-                            category={item.category}
-                            image={item.image}
-                          />
-                        )}
-                      </Grid>
-                    );
-                  })}
+                {products?.map((item, value) => {
+                  return (
+                    <Grid item xs={6} md={3} key={item.id}>
+                      {Loading ? (
+                        <Stack
+                          spacing={1}
+                          sx={{ maxWidth: 345, minWidth: 100 }}
+                        >
+                          <Skeleton variant="rounded" height={140} />
+                          <Skeleton variant="rectangular" width={110} />
+                          <Skeleton variant="rounded" width={110} />
+                        </Stack>
+                      ) : (
+                        <ProductItem
+                          id={item.id}
+                          name={item.name}
+                          price={item.precio}
+                          category={item.category}
+                          image={item.image}
+                        />
+                      )}
+                    </Grid>
+                  );
+                })}
               </Grid>
             </Box>
           </Container>
@@ -183,8 +250,9 @@ const SearchProducts = () => {
               }}
               color="secondary"
               size="large"
-              count={2}
-              page={1}
+              count={totalPage}
+              page={page}
+              onChange={handleChange}
             />
           </Stack>
         </Grid>

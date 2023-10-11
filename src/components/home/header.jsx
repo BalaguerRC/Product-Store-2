@@ -9,18 +9,21 @@ import {
   CircularProgress,
   Container,
   Divider,
+  FormControl,
   FormGroup,
   Grid,
   IconButton,
+  InputLabel,
   ListItemIcon,
   Menu,
   MenuItem,
+  Select,
   TextField,
   Toolbar,
   Tooltip,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -60,6 +63,33 @@ const Header = () => {
       setCarritoNumber(getCarrito.length);
     }
   };
+  //category
+  const [openCategory, setOpenCategory] = useState(false);
+  const [category, setCategory] = useState([]);
+  const [category2, setCategory2] = useState(null);
+  const [categoryByID, setcategoryById] = useState(0);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const GetCategory = () => {
+    fetch(import.meta.env.VITE_URL + "/Categorie", {
+      method: "GET",
+    })
+      .then((resp) => resp.json())
+      .then((data) => setCategory(data));
+  };
+  useEffect(() => {
+    GetCategory();
+  }, []);
+
   return (
     <div>
       <header>
@@ -81,10 +111,48 @@ const Header = () => {
                 </Grid>
                 <Grid item xs>
                   <ButtonGroup size="large" sx={{ width: "100%" }}>
-                    <Button size="small">Filter</Button>
                     <Button size="small">
+                      {category2 == null ? "Filter" : category2}
+                    </Button>
+                    <Button size="small" onClick={handleClick}>
                       <ArrowDropDownIcon />
                     </Button>
+                    <Menu
+                      anchorEl={anchorEl}
+                      open={open}
+                      onClose={handleClose}
+                      PaperProps={{
+                        style: {
+                          maxHeight: 48 * 4.5,
+                          width: "20ch",
+                        },
+                      }}
+                    >
+                      <MenuItem
+                        value={null}
+                        onClick={(e) => {
+                          handleClose();
+                          setCategory2(null);
+                        }}
+                      >
+                        None
+                      </MenuItem>
+                      {category.map((option) => (
+                        <MenuItem
+                          key={option.id}
+                          value={option.id}
+                          onClick={(e) => {
+                            handleClose();
+                            console.log(e.target.value);
+                            setCategory2(option.name);
+                            setcategoryById(e.target.value);
+                          }}
+                        >
+                          {option.name}
+                        </MenuItem>
+                      ))}
+                    </Menu>
+
                     <TextField
                       label={"Search"}
                       placeholder="search..."
@@ -97,8 +165,16 @@ const Header = () => {
                       href="#"
                       onClick={() =>
                         name == ""
-                          ? navigate("/search/all/a")
-                          : navigate("/search/all/" + name)
+                          ? navigate(
+                              category2 == null
+                                ? "/search/all/a"
+                                : "/search/" + categoryByID + "/a"
+                            )
+                          : navigate(
+                              category2 == null
+                                ? "/search/all/" + name
+                                : "/search/" + categoryByID + "/" + name
+                            )
                       }
                     >
                       <SearchIcon fontSize="small" />
