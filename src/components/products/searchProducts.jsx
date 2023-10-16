@@ -6,6 +6,7 @@ import {
   Container,
   Grid,
   Pagination,
+  Paper,
   Skeleton,
   Stack,
   Typography,
@@ -110,6 +111,7 @@ const SearchProducts = () => {
 
   const [totalPage, setTotalPage] = useState(1);
   const [page, setPage] = useState(1);
+  const [link, setLink] = useState(null);
 
   const response = () => {
     //setLoading(false)
@@ -127,11 +129,11 @@ const SearchProducts = () => {
       });
   };
 
-  const CurrentPage = async(value) => {
-    await fetch(
-      `${
-        import.meta.env.VITE_URL
-      }/ProductsPag/getProductClient?pageNumber=${value}&pageSize=12`,
+  const CurrentPage = (value) => {
+    fetch(
+      `${import.meta.env.VITE_URL}${
+        link == null ? "/ProductsPag/getProductClient" : link
+      }?pageNumber=${value}&pageSize=12`,
       {
         method: "GET",
       }
@@ -144,19 +146,18 @@ const SearchProducts = () => {
   };
   const handleChange = (event, value) => {
     setPage(value);
-    console.log(value)
+    console.log(value);
     CurrentPage(value);
   };
 
   const Filter = (idcategory) => {
-    if (idcategory === null) {
+    if (idcategory === null || idcategory === "all") {
+      setLink(null);
+      setPage(1);
       response();
     } else {
-      fetch(import.meta.env.VITE_URL + "/ProductsById/" + idcategory, {
+      fetch(import.meta.env.VITE_URL + "/ProductsByIdPage/" + idcategory, {
         method: "GET",
-        headers: {
-          Authorization: "Bearer " + getToken,
-        },
       })
         .then((res) => res.json())
         .then((data) => {
@@ -165,8 +166,12 @@ const SearchProducts = () => {
             console.log("Not Found");
             response();
           } else {
-            console.log(data);
             setProducts(data.data);
+            setPage(1);
+            setTotalPage(data.totalPages);
+            setLink("/ProductsByIdPage/" + idcategory);
+            /*setNextPage(data.nextPage);
+            setCurrentNumberPage(data.pageNumber);*/
           }
         })
         .catch((err) => console.log("Error: " + err));
@@ -232,6 +237,24 @@ const SearchProducts = () => {
                     </Grid>
                   );
                 })}
+                {console.log()}
+                {products.length == 0 ? (
+                  <Grid
+                    container
+                    direction={"row"}
+                    justifyContent={"center"}
+                    pt={5}
+                    pb={5}
+                  >
+                    <Grid item xs sx={{textAlign:'center'}}>
+                      <Paper sx={{p:5}} variant="outlined">
+                        <Typography gutterBottom>
+                          There are no products
+                        </Typography>
+                      </Paper>
+                    </Grid>
+                  </Grid>
+                ) : null}
               </Grid>
             </Box>
           </Container>
