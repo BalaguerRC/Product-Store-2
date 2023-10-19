@@ -108,7 +108,21 @@ const ListProductCategory = () => {
       });
   };
 
-  useEffect(() => {}, []);
+  const [latestElectronics, setlatestElectronics] = useState([]);
+  const getLatestElectronics = () => {
+    fetch(import.meta.env.VITE_URL + "/LatestProducts/electronics", {
+      method: "GET",
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setlatestElectronics(data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getLatestElectronics();
+  }, []);
 
   return (
     <>
@@ -151,20 +165,59 @@ const ListProductCategory = () => {
               }}
               cols={2}
             >
-              {productS2.map((item) => (
-                <ImageListItem key={item.id}>
+              {latestElectronics == 0
+                ? productS2.map((item) => (
+                    <ImageListItem key={item.id}>
+                      <img
+                        src={`${
+                          item.img == null ? "/src/assets/signo.png" : item.img
+                        }?w=248&fit=crop&auto=format`}
+                        srcSet={`${
+                          item.img == null ? "/src/assets/signo.png" : item.img
+                        }?w=248&fit=crop&auto=format&dpr=2 2x`}
+                        alt={item.name}
+                        loading="lazy"
+                        style={{ borderRadius: 20 }}
+                      />
+                      <ImageListItemBar
+                        sx={{
+                          borderRadius: 5,
+                          borderStartEndRadius: 0,
+                          borderStartStartRadius: 0,
+                        }}
+                        title={item.name}
+                        actionIcon={
+                          <IconButton
+                            sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                            aria-label={`info about ${item.name}`}
+                          >
+                            <InfoIcon />
+                          </IconButton>
+                        }
+                      />
+                    </ImageListItem>
+                  ))
+                : null}
+              {latestElectronics?.map((item, index) => (
+                <ImageListItem key={index}>
                   <img
                     src={`${
-                      item.img == null ? "/src/assets/signo.png" : item.img
+                      item.image == null ? "/src/assets/signo.png" : item.image
                     }?w=248&fit=crop&auto=format`}
                     srcSet={`${
-                      item.img == null ? "/src/assets/signo.png" : item.img
+                      item.image == null ? "/src/assets/signo.png" : item.image
                     }?w=248&fit=crop&auto=format&dpr=2 2x`}
                     alt={item.name}
                     loading="lazy"
+                    style={{ borderRadius: 20 }}
                   />
                   <ImageListItemBar
                     title={item.name}
+                    sx={{
+                      borderRadius: 5,
+                      borderStartEndRadius: 0,
+                      borderStartStartRadius: 0,
+                    }}
                     actionIcon={
                       <IconButton
                         sx={{ color: "rgba(255, 255, 255, 0.54)" }}
@@ -217,9 +270,15 @@ const ListProductCategory = () => {
                     }?w=248&fit=crop&auto=format&dpr=2 2x`}
                     alt={item.name}
                     loading="lazy"
+                    style={{ borderRadius: 20 }}
                   />
                   <ImageListItemBar
                     title={item.name}
+                    sx={{
+                      borderRadius: 5,
+                      borderStartEndRadius: 0,
+                      borderStartStartRadius: 0,
+                    }}
                     actionIcon={
                       <IconButton
                         sx={{ color: "rgba(255, 255, 255, 0.54)" }}
@@ -272,9 +331,15 @@ const ListProductCategory = () => {
                     }?w=248&fit=crop&auto=format&dpr=2 2x`}
                     alt={item.name}
                     loading="lazy"
+                    style={{ borderRadius: 20 }}
                   />
                   <ImageListItemBar
                     title={item.name}
+                    sx={{
+                      borderRadius: 5,
+                      borderStartEndRadius: 0,
+                      borderStartStartRadius: 0,
+                    }}
                     actionIcon={
                       <IconButton
                         sx={{ color: "rgba(255, 255, 255, 0.54)" }}
