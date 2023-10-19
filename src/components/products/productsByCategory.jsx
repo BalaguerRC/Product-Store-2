@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import desconocido from "../../assets/signo.png";
 import {
   Box,
   Container,
   Grid,
   Pagination,
+  Paper,
   Skeleton,
   Stack,
   Typography,
@@ -105,9 +106,9 @@ const ProductsByCategory = () => {
 
   const [Product, setProduct] = useState([]);
   const [Loading, setLoading] = useState(false);
+  const [link, setLink] = useState(null);
 
   const response = () => {
-    //setLoading(false)
     fetch(import.meta.env.VITE_URL + "/ProductsPag/getProductClient", {
       method: "GET",
     })
@@ -122,19 +123,51 @@ const ProductsByCategory = () => {
       });
   };
 
+  const Filter = (idcategory) => {
+    if (idcategory != undefined) {
+      fetch(import.meta.env.VITE_URL + "/ProductsByIdPage/" + idcategory, {
+        method: "GET",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (JSON.stringify(data.data) == undefined) {
+            console.log("Not Found");
+            response();
+          } else {
+            setProduct(data.data);
+            setPage(1);
+            setTotalPage(data.totalPages);
+            setLink("/ProductsByIdPage/" + idcategory);
+          }
+        })
+        .catch((err) => console.log("Error: " + err));
+    }
+  };
+  const navigate = useNavigate();
+
   useEffect(() => {
+    Filter(
+      category == "video_games"
+        ? 10010
+        : category == "clothes"
+        ? 10011
+        : category == "shoes"
+        ? 10009
+        : category == "electrics"
+        ? 10006
+        : navigate("/search/all")
+    );
     setLoading(true);
-    response();
+    category == "all" ? response() : null;
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, []);
-
+  }, [category]);
   const CurrentPage = (value) => {
     fetch(
-      `${
-        import.meta.env.VITE_URL
-      }/ProductsPag/getProductClient?pageNumber=${value}&pageSize=12`,
+      `${import.meta.env.VITE_URL}${
+        link == null ? "/ProductsPag/getProductClient" : link
+      }?pageNumber=${value}&pageSize=12`,
       {
         method: "GET",
       }
@@ -145,6 +178,7 @@ const ProductsByCategory = () => {
       })
       .catch((err) => console.log(err));
   };
+
   const handleChange = (event, value) => {
     setPage(value);
     console.log(value);
@@ -191,29 +225,69 @@ const ProductsByCategory = () => {
                       </Grid>
                     );
                   })}
+                {Product.length == 0 ? (
+                  <Grid
+                    container
+                    direction={"row"}
+                    justifyContent={"center"}
+                    pt={5}
+                    pb={5}
+                  >
+                    <Grid item xs sx={{ textAlign: "center" }}>
+                      <Paper sx={{ p: 5 }} variant="outlined">
+                        <Typography gutterBottom>
+                          There are no products
+                        </Typography>
+                      </Paper>
+                    </Grid>
+                  </Grid>
+                ) : null}
               </Grid>
             </Box>
           </Container>
-          <Stack marginTop={2} marginBottom={2}>
-            <Pagination
-              sx={{
-                ".css-1nihme9-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected":
-                  {
-                    background: "#661AE6",
+          {Product.length == 0 ? (
+            <Stack marginTop={2} marginBottom={2}>
+              <Pagination
+                sx={{
+                  ".css-1nihme9-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected":
+                    {
+                      background: "#661AE6",
+                      color: "white",
+                    },
+                  "& .Mui-selected:hover": {
+                    background: "#8146eb",
                     color: "white",
                   },
-                "& .Mui-selected:hover": {
-                  background: "#8146eb",
-                  color: "white",
-                },
-              }}
-              color="secondary"
-              size="large"
-              count={totalPage}
-              page={page}
-              onChange={handleChange}
-            />
-          </Stack>
+                }}
+                color="secondary"
+                size="large"
+                count={1}
+                page={1}
+                disabled
+              />
+            </Stack>
+          ) : (
+            <Stack marginTop={2} marginBottom={2}>
+              <Pagination
+                sx={{
+                  ".css-1nihme9-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected":
+                    {
+                      background: "#661AE6",
+                      color: "white",
+                    },
+                  "& .Mui-selected:hover": {
+                    background: "#8146eb",
+                    color: "white",
+                  },
+                }}
+                color="secondary"
+                size="large"
+                count={totalPage}
+                page={page}
+                onChange={handleChange}
+              />
+            </Stack>
+          )}
         </Grid>
       </Box>
     </div>

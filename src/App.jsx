@@ -13,22 +13,24 @@ import Perfil from "./pages/auth/Perfil/perfil";
 import { AuthLayout, LoginLayout } from "./components/AuthLayout.jsx";
 import Historia from "./pages/auth/Perfil/historia";
 import Bills from "./pages/Products/bills";
-import Search, {RedirectSearch } from "./pages/Products/search";
+import Search, { RedirectSearch } from "./pages/Products/search";
 import ProductsCategory from "./pages/Products/productsCategory";
 import SearchProducts from "./components/products/searchProducts";
 
 function App() {
   //const [count, setCount] = useState(0)
 
+  const changeTheme = 1;
+
   const darkTheme = createTheme({
     palette: {
-      mode: "dark",
+      mode: changeTheme == 1 ? "dark" : "light",
       primary: {
         main: "#81CC96",
       },
       background: {
-        default: "#1d212c",
-        paper: "#212B36",
+        default:  changeTheme == 1 ?"#1d212c":"#fff",
+        paper:  changeTheme == 1 ?"#212B36":"#fff",
       },
     },
   });

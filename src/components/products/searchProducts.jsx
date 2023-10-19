@@ -237,7 +237,6 @@ const SearchProducts = () => {
                     </Grid>
                   );
                 })}
-                {console.log()}
                 {products.length == 0 ? (
                   <Grid
                     container

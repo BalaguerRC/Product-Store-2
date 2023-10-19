@@ -24,39 +24,8 @@ import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import InfoIcon from "@mui/icons-material/Info";
 import { useNavigate } from "react-router-dom";
-
-const productS = [
-  {
-    id: 1,
-    name: "test1",
-    price: 200,
-    img: desconocido,
-  },
-  {
-    id: 2,
-    name: "test2",
-    price: 200,
-    img: desconocido,
-  },
-  {
-    id: 3,
-    name: "test3",
-    price: 200,
-    img: desconocido,
-  },
-  {
-    id: 4,
-    name: "test4",
-    price: 200,
-    img: desconocido,
-  },
-  {
-    id: 5,
-    name: "test5",
-    price: 200,
-    img: desconocido,
-  },
-];
+import LatestProducts from "./GetLatest/latestProducts";
+import LatestVideoGames from "./GetLatest/latestVideoGames";
 
 const productS2 = [
   {
@@ -139,155 +108,13 @@ const ListProductCategory = () => {
       });
   };
 
-  useEffect(() => {
-    GetProduct();
-  }, []);
-
-  const navigate = useNavigate();
+  useEffect(() => {}, []);
 
   return (
     <>
-      <Box sx={{ backgroundColor: "#22414B" }}>
-        <Grid container direction={"column"} p={7} spacing={4}>
-          <Grid item>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography variant="h4" sx={{ fontWeight: 700 }}>
-                Latest Products
-              </Typography>
-              <Button variant="text">
-                <Link href="#" underline="hover">
-                  View More
-                </Link>
-              </Button>
-            </Box>
-          </Grid>
-          <Grid item>
-            <Grid
-              container
-              direction={"row"}
-              justifyContent={"center"}
-              spacing={4}
-              alignItems={"center"}
-            >
-              {productS.map((data) => (
-                <Grid item key={data.id}>
-                  <Card sx={{ maxWidth: 235, maxHeight: 400, borderRadius: 5 }}>
-                    <CardMedia>
-                      <img
-                        src={data.img}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          borderRadius: 5,
-                        }}
-                      />
-                    </CardMedia>
-                    <CardContent sx={{p:2}}>
-                      <Box display={"flex"}>
-                        <Typography gutterBottom variant="h5" component="div">
-                          {data.name}
-                        </Typography>
-                        <Chip
-                          label={"new"}
-                          color="secondary"
-                          sx={{ ml: 2 }}
-                          size="small"
-                        />
-                      </Box>
-                    </CardContent>
-                    <CardActions sx={{ justifyContent: "space-between", p: 2 }}>
-                      <Typography variant="body2" color="text.secondary">
-                        RD$ {data.price}
-                      </Typography>
-                      <Button variant="contained" sx={{ borderRadius: 3 }}>
-                        Buy
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
-          </Grid>
-        </Grid>
-      </Box>
+      <LatestProducts />
 
-      <Box>
-        <Grid container direction={"column"} p={7} spacing={4}>
-          <Grid item>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography variant="h4" sx={{ fontWeight: 700 }}>
-                Video Games
-              </Typography>
-              <Button variant="text">
-                <Link href="#" underline="hover">
-                  View More
-                </Link>
-              </Button>
-            </Box>
-          </Grid>
-          <Grid item>
-            <Grid
-              container
-              direction={"row"}
-              justifyContent={"center"}
-              spacing={4}
-              alignItems={"center"}
-            >
-              {productS.map((data) => (
-                <Grid item key={data.id}>
-                  <Card sx={{ maxWidth: 235, maxHeight: 400, borderRadius: 5 }}>
-                    <CardMedia>
-                      <img
-                        src={data.img}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          borderRadius: 5,
-                        }}
-                      />
-                    </CardMedia>
-                    <CardContent sx={{p:2}}>
-                      <Box display={"flex"}>
-                        <Typography gutterBottom variant="h5" component="div">
-                          {data.name}
-                        </Typography>
-                        <Chip
-                          label={"new"}
-                          color="secondary"
-                          sx={{ ml: 2 }}
-                          size="small"
-                        />
-                      </Box>
-                    </CardContent>
-                    <CardActions sx={{ justifyContent: "space-between", p: 2 }}>
-                      <Typography variant="body2" color="text.secondary">
-                        RD$ {data.price}
-                      </Typography>
-                      <Button variant="contained" sx={{ borderRadius: 3 }}>
-                        Buy
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
-          </Grid>
-        </Grid>
-      </Box>
+      <LatestVideoGames />
 
       <Box sx={{ backgroundColor: "#22414B" }}>
         <Grid
@@ -309,14 +136,19 @@ const ListProductCategory = () => {
                 Electronics
               </Typography>
               <Button variant="text">
-                <Link href="#" underline="hover">
+                <Link href="search/electrics" underline="hover">
                   View More
                 </Link>
               </Button>
             </Box>
 
             <ImageList
-              sx={{ width: "auto", maxWidth: 410, maxHeight: 420,height:"100%" }}
+              sx={{
+                width: "auto",
+                maxWidth: 410,
+                maxHeight: 420,
+                height: "100%",
+              }}
               cols={2}
             >
               {productS2.map((item) => (
@@ -359,14 +191,19 @@ const ListProductCategory = () => {
                 Clothes
               </Typography>
               <Button variant="text">
-                <Link href="#" underline="hover">
+                <Link href="/search/clothes" underline="hover">
                   View More
                 </Link>
               </Button>
             </Box>
 
             <ImageList
-              sx={{ width: "auto", maxWidth: 410, maxHeight: 420,height:"100%" }}
+              sx={{
+                width: "auto",
+                maxWidth: 410,
+                maxHeight: 420,
+                height: "100%",
+              }}
               cols={2}
             >
               {productS2.map((item) => (
@@ -409,14 +246,19 @@ const ListProductCategory = () => {
                 Shoes
               </Typography>
               <Button variant="text">
-                <Link href="#" underline="hover">
+                <Link href="/search/shoes" underline="hover">
                   View More
                 </Link>
               </Button>
             </Box>
 
             <ImageList
-              sx={{ width: "auto", maxWidth: 410, maxHeight: 420,height:"100%"  }}
+              sx={{
+                width: "auto",
+                maxWidth: 410,
+                maxHeight: 420,
+                height: "100%",
+              }}
               cols={2}
             >
               {productS2.map((item) => (
