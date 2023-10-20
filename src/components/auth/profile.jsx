@@ -34,9 +34,89 @@ const Profile = () => {
       navigate("/login");
     }, 1500);
   };
+
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box>
+        <Grid container direction={"row"} p={5}>
+          <Grid item xs={4}>
+            <Paper sx={{ height: "100%" }} variant="outlined">
+              <Grid container direction={"column"}>
+                <Grid item display={"flex"} alignItems={"center"} p={3}>
+                  <Button
+                    variant="text"
+                    onClick={() => navigate("/")}
+                    size="small"
+                  >
+                    {"< - "}
+                  </Button>
+                  <Typography variant="button" sx={{ fontSize: 22 }}>
+                    Home
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Divider />
+                </Grid>
+                <Grid item sx={{ display: "flex", minHeight: "500px" }}>
+                  <Grid
+                    container
+                    direction={"column"}
+                    spacing={2}
+                    justifyContent={"space-between"}
+                  >
+                    <Grid item display={"flex"} flexDirection={"column"} mt={2} >
+                      <MenuItem onClick={() => navigate("/profile")}>
+                        <ListItemIcon>
+                          <AccountCircleIcon />
+                        </ListItemIcon>
+                        <ListItemText>Perfil</ListItemText>
+                      </MenuItem>
+                      <MenuItem onClick={() => navigate("historia")}>
+                        <ListItemIcon>
+                          <HistoryIcon />
+                        </ListItemIcon>
+                        <ListItemText>Historial</ListItemText>
+                      </MenuItem>
+                      <MenuItem disabled>
+                        <ListItemIcon>
+                          <SettingsIcon />
+                        </ListItemIcon>
+                        <ListItemText>Opciones Avanzadas</ListItemText>
+                      </MenuItem>
+                      <Divider sx={{pt:2}}/>
+                    </Grid>
+                    <Grid item>
+                      <MenuItem
+                        onClick={() => {
+                          setLoading(!Loading);
+                          Logout();
+                        }}
+                      >
+                        <ListItemIcon>
+                          <LogoutIcon />
+                        </ListItemIcon>
+                        <ListItemText>Cerrar sesion</ListItemText>
+                        {Loading ? <CircularProgress size={20} /> : null}
+                      </MenuItem>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+          <Grid item xs={8}>
+            <Paper sx={{ height: "100%" }} variant="outlined">
+              <Outlet />
+            </Paper>
+          </Grid>
+        </Grid>
+      </Box>
+    </>
+  );
+};
+{
+  /**
+  <Box sx={{ flexGrow: 1 }}>
         <Container sx={{ pt: 2 }}>
           <Paper variant="outlined">
             <Grid
@@ -119,8 +199,6 @@ const Profile = () => {
           </Paper>
         </Container>
       </Box>
-    </>
-  );
-};
-
+   */
+}
 export default Profile;

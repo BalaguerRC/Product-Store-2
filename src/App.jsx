@@ -26,14 +26,33 @@ function App() {
     palette: {
       mode: changeTheme == 1 ? "dark" : "light",
       primary: {
-        main: "#81CC96",
+        main: changeTheme == 1 ? "#6A0DAD" : "#81CC96",
+      },
+      secondary: {
+        main: "#FFD700",
+      },
+      info: {
+        main: "#E53935",
       },
       background: {
-        default:  changeTheme == 1 ?"#1d212c":"#fff",
-        paper:  changeTheme == 1 ?"#212B36":"#fff",
+        default: changeTheme == 1 ? "#1d212c" : "#F0F0F0",
+        paper: changeTheme == 1 ? "#212B36" : "#333333",
       },
     },
   });
+
+  /**
+  palette: {
+      mode: changeTheme == 1 ? "dark" : "light",
+      primary: {
+        main: changeTheme == 1 ? "#81CC96" : "#6A0DAD",
+      },
+      background: {
+        default: changeTheme == 1 ? "#1d212c" : "#F0F0F0",
+        paper: changeTheme == 1 ? "#212B36" : "#333333",
+      },
+    },
+   */
 
   const router = createBrowserRouter([
     {

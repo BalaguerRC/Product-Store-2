@@ -110,10 +110,7 @@ const Login = () => {
               >
                 <Grid container direction={"column"} spacing={2}>
                   <Grid item>
-                    <Link
-                      underline="hover"
-                      href="/"
-                    >
+                    <Link underline="hover" href="/">
                       <Typography variant="button" color={"text.secondary"}>
                         {"<-Home"}
                       </Typography>
@@ -159,14 +156,24 @@ const Login = () => {
                   </Grid>
                   <Grid item>
                     {Loading ? (
-                      <LoadingButton type="submit" variant="contained" loading fullWidth>
-                        Sing Up
+                      <LoadingButton
+                        type="submit"
+                        variant="contained"
+                        loading
+                        fullWidth
+                      >
+                        Sing In
                       </LoadingButton>
                     ) : (
                       <Button type="submit" variant="contained" fullWidth>
-                        Sing Up
+                        Sing In
                       </Button>
                     )}
+                  </Grid>
+                  <Grid item>
+                    <Button variant="outlined" color="secondary" fullWidth>
+                      Sing Up
+                    </Button>
                   </Grid>
                   <Grid item>
                     <Link>Forgot my password</Link>

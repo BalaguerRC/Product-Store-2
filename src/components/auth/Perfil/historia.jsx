@@ -89,7 +89,54 @@ const Historia = () => {
   /*const [open, setOpen] = useState(true);*/
   return (
     <>
-      <Grid sx={{ p: 2 }}>
+      <Grid container direction={"column"} justifyContent={"space-between"}>
+        <Grid item p={3}>
+          <Typography variant="button" sx={{ fontSize: 22 }}>
+            History
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Divider />
+        </Grid>
+        <Grid item p={2}>
+          <Paper sx={{ width: "100%", overflow: "hidden" }}>
+            {lista == 0 ? (
+              <Typography variant="subtitle1" pl={1}>
+                Token Expirado
+              </Typography>
+            ) : (
+              <TableContainer sx={{ maxHeight: 458 }}>
+                <Table>
+                  <TableHead sx={{ backgroundColor: "background.paper" }}>
+                    <TableRow>
+                      <TableCell></TableCell>
+                      <TableCell>Invoice Number</TableCell>
+                      <TableCell>$ Total Price</TableCell>
+                      <TableCell>Date</TableCell>
+                      <TableCell>Actions</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody sx={{ backgroundColor: "#1b1e24" }}>
+                    {lista &&
+                      lista.map((item, index) => {
+                        return (
+                          <Row item={item} date={lista2[index]} key={index} />
+                        );
+                      })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
+          </Paper>
+        </Grid>
+      </Grid>
+    </>
+  );
+};
+
+{
+  /**
+  <Grid sx={{ p: 2 }}>
         <Typography variant="button" sx={{ fontSize: 22 }}>
           Historial
         </Typography>
@@ -124,8 +171,6 @@ const Historia = () => {
           )}
         </Paper>
       </Grid>
-    </>
-  );
-};
-
+   */
+}
 export default Historia;

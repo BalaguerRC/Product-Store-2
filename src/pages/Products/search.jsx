@@ -15,8 +15,8 @@ const Search = () => {
             justifyContent={"center"}
             textAlign={"center"}
           >
-            <Typography variant="h5" gutterBottom>
-              Popular Categories
+            <Typography variant="h5" gutterBottom sx={{fontWeight: 700}}>
+              Categories
             </Typography>
             <Divider />
             <Button
