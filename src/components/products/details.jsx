@@ -253,7 +253,7 @@ const Details = () => {
 
   return (
     <>
-      <Box>
+      <Box pr={4} pl={4}>
         <Box>
           <Typography
             variant="h4"

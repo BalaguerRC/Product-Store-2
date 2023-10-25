@@ -297,8 +297,225 @@ const Car = () => {
 
   return (
     <>
-      <Grid>
-        <Box pt={2}>
+      <Grid container direction={"column"} spacing={2} p={4}>
+        <Grid item>
+          <Grid container direction={"row"} justifyContent={"space-between"}>
+            <Grid item>
+              <Typography
+                variant="h4"
+                gutterBottom
+                sx={{
+                  display: "flex",
+                  fontWeight: 700,
+                }}
+              >
+                <Button variant="text" onClick={() => navigate("/")}>
+                  {"< - "}
+                </Button>
+                Car
+              </Typography>
+            </Grid>
+            <Grid item sx={{ display: "flex", flexDirection: "column" }}>
+              <Typography variant="caption" color={"text.secondary"}>
+                Precio total: ${PrecioTotal.current}
+              </Typography>
+              <Typography variant="caption" color={"text.secondary"}>
+                Cantidad: {Carrito.length}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item>
+          <Grid container direction={"row"} justifyContent={"space-between"}>
+            <Grid item></Grid>
+            <Grid item>
+              {carrito2 == null || carrito2 == 0 ? (
+                <Grid container direction={"row"} alignItems={"center"}>
+                  <ButtonGroup variant="outlined">
+                    <Button variant="outlined" disabled>
+                      Comprar todo
+                    </Button>
+                    <Button variant="outlined" disabled>
+                      Eliminar todo
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+              ) : (
+                <Grid container direction={"row"} alignItems={"center"}>
+                  <ButtonGroup variant="outlined">
+                    <ButtonCustom variant="outlined" onClick={handleClickOpen}>
+                      Comprar todo
+                    </ButtonCustom>
+                    <ButtonDeleteCustomOutlined
+                      variant="outlined"
+                      onClick={removeProductCar}
+                    >
+                      Eliminar todo
+                    </ButtonDeleteCustomOutlined>
+                  </ButtonGroup>
+                </Grid>
+              )}
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid item>
+          <Divider />
+        </Grid>
+        <Grid item>
+          <Box paddingTop={1} justifyContent="center">
+            <Grid container item spacing={5}>
+              {carrito2 == null || carrito2 == 0 ? (
+                <Grid item xs>
+                  <Paper
+                    sx={{
+                      padding: 3,
+                      display: "grid",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: "#242933",
+                      textTransform: "uppercase",
+                    }}
+                    elevation={2}
+                  >
+                    <Typography variant="h6" gutterBottom>
+                      <strong>No tienes productos</strong>
+                    </Typography>
+                  </Paper>
+                </Grid>
+              ) : null}
+
+              {carrito2 &&
+                carrito2.map((item, value) => {
+                  return (
+                    <Grid item xs={6} md={3} key={value}>
+                      <Card
+                        sx={{
+                          maxWidth: 335,
+                          maxHeight: 500,
+                          backgroundColor: "#2b3246",
+                          borderRadius: 5,
+                        }}
+                        variant="outlined"
+                      >
+                        <ProductCarItem
+                          id={item.id}
+                          name={item.name}
+                          price={item.precio}
+                          image={item.image}
+                        />
+
+                        <CardActions>
+                          <ButtonCustom
+                            size="small"
+                            variant="contained"
+                            color="primary"
+                            sx={{ borderRadius: 3 }}
+                            onClick={() =>
+                              handleClickOpen2(
+                                item.id,
+                                item.name,
+                                item.quantity,
+                                item.precio
+                              )
+                            }
+                          >
+                            Comprar
+                          </ButtonCustom>
+                          <ButtonDeleteCustomOutlined
+                            size="small"
+                            variant="outlined"
+                            color="primary"
+                            sx={{ borderRadius: 3 }}
+                            startIcon={<Delete />}
+                            onClick={() =>
+                              handleClickOpenDelete(item.id, item.quantity)
+                            }
+                          >
+                            Eliminar
+                          </ButtonDeleteCustomOutlined>
+                        </CardActions>
+                      </Card>
+                    </Grid>
+                  );
+                })}
+            </Grid>
+          </Box>
+        </Grid>
+      </Grid>
+
+      <Snackbar
+        open={open2}
+        autoHideDuration={3000}
+        onClose={() => setOpen2(!open2)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert severity="success">Comprado</Alert>
+      </Snackbar>
+      <Snackbar
+        open={open3}
+        autoHideDuration={1000}
+        onClose={() => setOpen3(!open3)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert severity="success">Eliminado</Alert>
+      </Snackbar>
+
+      {/**Dialog */}
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>Comprar</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Esta seguro?</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={BuyOneProduct}>Comprar</Button>
+          <Button onClick={handleCloseDialog}>Cancelar</Button>
+        </DialogActions>
+      </Dialog>
+      {/**Dialog Delete*/}
+      <Dialog open={openDialog2} onClose={handleCloseDialog2}>
+        <DialogTitle>Eliminar</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Esta seguro de eliminar el producto?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          {Loading ? <CircularProgress size={30} /> : null}
+          <Button
+            variant="contained"
+            onClick={() => {
+              setLoading(!Loading);
+              DeleteOneProduct();
+            }}
+          >
+            Eliminar
+          </Button>
+          <Button variant="outlined" onClick={handleCloseDialog2}>Cancelar</Button>
+        </DialogActions>
+      </Dialog>
+
+      <Backdrop
+        sx={{ color: "#7eb8cf", zIndex: (theme) => theme.zIndex.drawer }}
+        open={Loading2}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    </>
+  );
+};
+
+export default Car;
+
+export const AddCar = (data) => {
+  Carrito.push(data);
+  console.log(Carrito);
+  localStorage.setItem("Carrito", JSON.stringify(Carrito));
+};
+
+{
+  /**
+  <Box pt={2}>
           <Grid
             container
             direction="column"
@@ -508,72 +725,5 @@ const Car = () => {
             </Container>
           </Grid>
         </Box>
-      </Grid>
-
-      <Snackbar
-        open={open2}
-        autoHideDuration={3000}
-        onClose={() => setOpen2(!open2)}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-      >
-        <Alert severity="success">Comprado</Alert>
-      </Snackbar>
-      <Snackbar
-        open={open3}
-        autoHideDuration={1000}
-        onClose={() => setOpen3(!open3)}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-      >
-        <Alert severity="success">Eliminado</Alert>
-      </Snackbar>
-
-      {/**Dialog */}
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Comprar</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Esta seguro?</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={BuyOneProduct}>Comprar</Button>
-          <Button onClick={handleCloseDialog}>Cancelar</Button>
-        </DialogActions>
-      </Dialog>
-      {/**Dialog Delete*/}
-      <Dialog open={openDialog2} onClose={handleCloseDialog2}>
-        <DialogTitle>Eliminar</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Esta seguro de eliminar el producto?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          {Loading ? <CircularProgress size={30} /> : null}
-          <Button
-            onClick={() => {
-              setLoading(!Loading);
-              DeleteOneProduct();
-            }}
-          >
-            Eliminar
-          </Button>
-          <Button onClick={handleCloseDialog2}>Cancelar</Button>
-        </DialogActions>
-      </Dialog>
-
-      <Backdrop
-        sx={{ color: "#7eb8cf", zIndex: (theme) => theme.zIndex.drawer }}
-        open={Loading2}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-    </>
-  );
-};
-
-export default Car;
-
-export const AddCar = (data) => {
-  Carrito.push(data);
-  console.log(Carrito);
-  localStorage.setItem("Carrito", JSON.stringify(Carrito));
-};
+   */
+}
