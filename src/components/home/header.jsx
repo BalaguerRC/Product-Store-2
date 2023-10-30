@@ -93,7 +93,9 @@ const Header = () => {
   return (
     <div>
       <header>
-        <AppBar position="fixed" sx={{ background: "#2A303C" }}>
+        <AppBar position="fixed" 
+        //sx={{ background: "#2A303C" }}
+        >
           <Container maxWidth="xl">
             <Toolbar disableGutters>
               <Grid

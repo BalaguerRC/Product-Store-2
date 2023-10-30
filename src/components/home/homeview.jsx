@@ -62,7 +62,7 @@ const HomeView = () => {
                   consumables, video games and much more.{" "}
                 </Typography>
               </Box>
-              <Button variant="contained" sx={{ borderRadius: 3 }} href="/products">Buy Something</Button>
+              <Button variant="contained" sx={{ borderRadius: 3 }} href="/search/all">Buy Something</Button>
             </Grid>
             <Grid item xs={4.5}>
               <img

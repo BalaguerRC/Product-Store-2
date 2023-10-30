@@ -221,7 +221,7 @@ const SearchProducts = () => {
                           spacing={1}
                           sx={{ maxWidth: 345, minWidth: 100 }}
                         >
-                          <Skeleton variant="rounded" height={140} />
+                          <Skeleton variant="rounded" height={280} />
                           <Skeleton variant="rectangular" width={110} />
                           <Skeleton variant="rounded" width={110} />
                         </Stack>
@@ -245,8 +245,8 @@ const SearchProducts = () => {
                     pt={5}
                     pb={5}
                   >
-                    <Grid item xs sx={{textAlign:'center'}}>
-                      <Paper sx={{p:5}} variant="outlined">
+                    <Grid item xs sx={{ textAlign: "center" }}>
+                      <Paper sx={{ p: 5 }} variant="outlined">
                         <Typography gutterBottom>
                           There are no products
                         </Typography>

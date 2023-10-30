@@ -136,15 +136,15 @@ const LatestProducts = () => {
                 ))
               : null}
             {latestProducts?.map((data, index) => (
-              <Grid item key={index}>
-                <Card sx={{ maxWidth: 235, maxHeight: 400, borderRadius: 5 }}>
+              <Grid item key={index} sx={{ flexGrow: 1 }} xs>
+                <Card sx={{ maxWidth: 285, maxHeight: 400, borderRadius: 5 }}>
                   <CardMedia
                     sx={{ height: 240 }}
                     image={data.image == null ? desconocido : data.image}
                     title={data.name}
                   ></CardMedia>
                   <CardContent sx={{ p: 2 }}>
-                    <Box display={"flex"}>
+                    <Box display={"flex"} justifyContent={"space-between"}>
                       <Typography
                         gutterBottom
                         variant="h5"

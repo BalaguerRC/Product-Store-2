@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { ButtonCustom } from "./style/Buttom";
 import LockIcon from "@mui/icons-material/Lock";
 import { PaperBox } from "../paperBox";
+import Game from "../../assets/Pc1.jpg";
 
 const Login = () => {
   const [email, setEmail] = useState(null);
@@ -92,7 +93,7 @@ const Login = () => {
           alignItems={"center"}
         >
           <Grid item sm={5} sx={{ display: { xs: "none", md: " grid" } }}>
-            <PaperBox className="containerApp2"></PaperBox>
+            <Box className="containerApp2 imgContainer"></Box>
           </Grid>
           <Grid item xs={0.4} sx={{ display: { xs: "grid", md: " none" } }}>
             <PaperBox className="containerApp2"></PaperBox>

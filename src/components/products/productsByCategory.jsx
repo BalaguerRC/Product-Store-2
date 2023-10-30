@@ -209,7 +209,7 @@ const ProductsByCategory = () => {
                             spacing={1}
                             sx={{ maxWidth: 345, minWidth: 100 }}
                           >
-                            <Skeleton variant="rounded" height={140} />
+                            <Skeleton variant="rounded" height={280} />
                             <Skeleton variant="rectangular" width={110} />
                             <Skeleton variant="rounded" width={110} />
                           </Stack>
