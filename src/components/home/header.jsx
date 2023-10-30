@@ -93,8 +93,10 @@ const Header = () => {
   return (
     <div>
       <header>
-        <AppBar position="fixed" 
-        //sx={{ background: "#2A303C" }}
+        <AppBar
+          position="fixed"
+          //dark: , light: BF58F2
+          //sx={{ background: "#2A303C" }}
         >
           <Container maxWidth="xl">
             <Toolbar disableGutters>
@@ -109,10 +111,20 @@ const Header = () => {
                 }}
               >
                 <Grid item>
-                  <Button href="/">ProductS</Button>
+                  <Button
+                    href="/"
+                    sx={{ fontWeight: 700, fontSize: 18, color: "#fff" }}
+                  >
+                    ProductS
+                  </Button>
                 </Grid>
                 <Grid item xs>
-                  <ButtonGroup size="large" sx={{ width: "100%" }}>
+                  <ButtonGroup
+                    size="large"
+                    sx={{ width: "100%" }}
+                    color="secondary"
+                    variant="contained"
+                  >
                     <Button size="small">
                       {category2 == null ? "Filter" : category2}
                     </Button>
@@ -162,6 +174,10 @@ const Header = () => {
                       type="text"
                       onChange={(e) => setName(e.currentTarget.value)}
                       fullWidth
+                      variant="outlined"
+                      sx={{
+                        background: "#fff",
+                      }}
                     />
                     <Button
                       href="#"
@@ -205,8 +221,8 @@ const Header = () => {
                 <Grid item>
                   {getToken == null ? (
                     <Button
-                      variant="contained"
-                      sx={{ borderRadius: 3 }}
+                      variant="text"
+                      sx={{ borderRadius: 3, color: "#fff", fontWeight: 600 }}
                       onClick={() => {
                         setLoading(!Loading);
                         setTimeout(() => {

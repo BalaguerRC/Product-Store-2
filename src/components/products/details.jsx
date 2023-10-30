@@ -334,7 +334,12 @@ const Details = () => {
                     <Button
                       variant="contained"
                       size="small"
-                      sx={{ borderRadius: 3 }}
+                      sx={{
+                        borderTopRightRadius: 10,
+                        borderBottomRightRadius: 10,
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0,
+                      }}
                     >
                       Send
                     </Button>

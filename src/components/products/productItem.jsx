@@ -44,7 +44,7 @@ const ProductItem = ({ id, name, price, category, image }) => {
             </ImageListItem>*/}
           </CardMedia>
           <CardContent sx={{ p: 2 }}>
-            <Box display={"flex"}>
+            <Box display={"flex"} justifyContent={"space-between"}>
               <Typography gutterBottom variant="h5" component="div" noWrap>
                 {name}
               </Typography>

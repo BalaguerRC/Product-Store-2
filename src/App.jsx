@@ -26,7 +26,8 @@ function App() {
     palette: {
       mode: changeTheme == 1 ? "dark" : "light",
       primary: {
-        main: changeTheme == 1 ? "#c954a2 " : "#81CC96",
+        main: changeTheme == 1 ? "#F2059F " : "#F2059F",
+
       },
       secondary: {
         main: "#FFD700",
@@ -35,11 +36,32 @@ function App() {
         main: "#E53935",
       },
       background: {
-        default: changeTheme == 1 ? "#1d212c" : "#F0F0F0",
-        paper: changeTheme == 1 ? "#212B36" : "#333333",
+        default: changeTheme == 1 ? "#141425" : "#ffffff",
+        paper: changeTheme == 1 ? "#18062C" : "#ECDBF7",
+        
       },
+      
     },
   });
+
+  /**
+  palette: {
+      mode: changeTheme == 1 ? "dark" : "light",
+      primary: {
+        main: changeTheme == 1 ? "#c954a2 " : "#c954a2",
+      },
+      secondary: {
+        main: "#FFD700",
+      },
+      info: {
+        main: "#E53935",
+      },
+      background: {
+        default: changeTheme == 1 ? "#141425" : "#F0F0F0",
+        paper: changeTheme == 1 ? "#18062C" : "#9A17EA",
+      },
+    },
+   */
 
  /*palette: {
       mode: changeTheme == 1 ? "dark" : "light",

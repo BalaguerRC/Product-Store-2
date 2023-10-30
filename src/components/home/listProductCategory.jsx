@@ -130,7 +130,10 @@ const ListProductCategory = () => {
 
       <LatestVideoGames />
 
-      <Box sx={{ backgroundColor: "#22414B" }}>
+      <Box
+        sx={{ backgroundColor: "#010A26" }}
+        //light : F0F0F0 ,dark:010A26
+      >
         <Grid
           container
           direction={"row"}

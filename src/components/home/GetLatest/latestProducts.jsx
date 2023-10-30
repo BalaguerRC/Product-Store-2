@@ -61,9 +61,12 @@ const LatestProducts = () => {
     //GetProduct();
     GetLatestProduct();
   }, []);
-
+  //010A26
   return (
-    <Box sx={{ backgroundColor: "#22414B" }}>
+    <Box
+      sx={{ backgroundColor: "#010A26" }}
+      //light : F0F0F0 ,dark:010A26
+    >
       <Grid container direction={"column"} p={7} spacing={4}>
         <Grid item>
           <Box
