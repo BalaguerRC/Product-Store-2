@@ -189,94 +189,109 @@ const SearchProducts = () => {
 
   return (
     <div>
-      <Box pt={2}>
-        <Grid
-          container
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Container>
-            <Grid container direction={"row"} spacing={1}>
-              <Grid item>
-                <Typography variant="h6" gutterBottom>
-                  Category: <Typography variant="button">{category}</Typography>{" "}
-                  and
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="h6" gutterBottom>
-                  Name: <Typography variant="button">{name}</Typography>
-                </Typography>
-              </Grid>
+      <Box p={2}>
+        <Grid container direction="column">
+          <Grid container direction={"row"} spacing={1}>
+            <Grid item>
+              <Typography variant="h6" gutterBottom>
+                Category: <Typography variant="button">{category}</Typography>{" "}
+                and
+              </Typography>
             </Grid>
+            <Grid item>
+              <Typography variant="h6" gutterBottom>
+                Name: <Typography variant="button">{name}</Typography>
+              </Typography>
+            </Grid>
+          </Grid>
 
-            <Box paddingTop={2} justifyContent="center">
-              <Grid container item spacing={3}>
-                {products?.map((item, value) => {
-                  return (
-                    <Grid item xs={6} md={3} key={item.id}>
-                      {Loading ? (
-                        <Stack
-                          spacing={1}
-                          sx={{ maxWidth: 345, minWidth: 100 }}
-                        >
-                          <Skeleton variant="rounded" height={280} />
-                          <Skeleton variant="rectangular" width={110} />
-                          <Skeleton variant="rounded" width={110} />
-                        </Stack>
-                      ) : (
-                        <ProductItem
-                          id={item.id}
-                          name={item.name}
-                          price={item.precio}
-                          category={item.category}
-                          image={item.image}
-                        />
-                      )}
-                    </Grid>
-                  );
-                })}
-                {products.length == 0 ? (
-                  <Grid
-                    container
-                    direction={"row"}
-                    justifyContent={"center"}
-                    pt={5}
-                    pb={5}
-                  >
-                    <Grid item xs sx={{ textAlign: "center" }}>
-                      <Paper sx={{ p: 5 }} variant="outlined">
-                        <Typography gutterBottom>
-                          There are no products
-                        </Typography>
-                      </Paper>
-                    </Grid>
+          <Box paddingTop={2} justifyContent="center">
+            <Grid container item spacing={3}>
+              {products?.map((item, value) => {
+                return (
+                  <Grid item xs={6} md={3} key={item.id} sx={{ flexGrow: 1 }}>
+                    {Loading ? (
+                      <Stack spacing={1} sx={{ maxWidth: 345, minWidth: 100 }}>
+                        <Skeleton variant="rounded" height={280} />
+                        <Skeleton variant="rectangular" width={110} />
+                        <Skeleton variant="rounded" width={110} />
+                      </Stack>
+                    ) : (
+                      <ProductItem
+                        id={item.id}
+                        name={item.name}
+                        price={item.precio}
+                        category={item.category}
+                        image={item.image}
+                      />
+                    )}
                   </Grid>
-                ) : null}
-              </Grid>
-            </Box>
+                );
+              })}
+              {products.length == 0 ? (
+                <Grid
+                  container
+                  direction={"row"}
+                  justifyContent={"center"}
+                  pt={5}
+                  pb={5}
+                >
+                  <Grid item xs sx={{ textAlign: "center" }}>
+                    <Paper sx={{ p: 5 }} variant="outlined">
+                      <Typography gutterBottom>
+                        There are no products
+                      </Typography>
+                    </Paper>
+                  </Grid>
+                </Grid>
+              ) : null}
+            </Grid>
+          </Box>
+          <Container sx={{ display: "flex", justifyContent: "center" }}>
+            {products.length == 0 ? (
+              <Stack marginTop={2} marginBottom={2}>
+                <Pagination
+                  sx={{
+                    ".css-1nihme9-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected":
+                      {
+                        background: "#661AE6",
+                        color: "white",
+                      },
+                    "& .Mui-selected:hover": {
+                      background: "#8146eb",
+                      color: "white",
+                    },
+                  }}
+                  color="secondary"
+                  size="large"
+                  count={1}
+                  page={1}
+                  disabled
+                />
+              </Stack>
+            ) : (
+              <Stack marginTop={2} marginBottom={2}>
+                <Pagination
+                  sx={{
+                    ".css-1nihme9-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected":
+                      {
+                        background: "#661AE6",
+                        color: "white",
+                      },
+                    "& .Mui-selected:hover": {
+                      background: "#8146eb",
+                      color: "white",
+                    },
+                  }}
+                  color="secondary"
+                  size="large"
+                  count={totalPage}
+                  page={page}
+                  onChange={handleChange}
+                />
+              </Stack>
+            )}
           </Container>
-          <Stack marginTop={2} marginBottom={2}>
-            <Pagination
-              sx={{
-                ".css-1nihme9-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected":
-                  {
-                    background: "#661AE6",
-                    color: "white",
-                  },
-                "& .Mui-selected:hover": {
-                  background: "#8146eb",
-                  color: "white",
-                },
-              }}
-              color="secondary"
-              size="large"
-              count={totalPage}
-              page={page}
-              onChange={handleChange}
-            />
-          </Stack>
         </Grid>
       </Box>
     </div>

@@ -27,6 +27,7 @@ const ProductItem = ({ id, name, price, category, image }) => {
             maxWidth: 335,
             maxHeight: 500,
             borderRadius: 5,
+            //boxShadow: "0px 15px 25px 0px #C2C2C2",
           }}
         >
           <CardMedia

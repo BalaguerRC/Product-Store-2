@@ -10,8 +10,9 @@ import {
   Link,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import desconocido from "../../../assets/signo.png";
+import { ThemeContext } from "../../../App";
 
 const productS = [
   {
@@ -46,6 +47,7 @@ const productS = [
   },
 ];
 const LatestProducts = () => {
+  const theme = useContext(ThemeContext);
   const [latestProducts, setlatestProducts] = useState([]);
   const GetLatestProduct = async () => {
     await fetch(import.meta.env.VITE_URL + "/LatestProducts", {
@@ -64,7 +66,7 @@ const LatestProducts = () => {
   //010A26
   return (
     <Box
-      sx={{ backgroundColor: "#010A26" }}
+      sx={{ backgroundColor: theme.theme === "light" ? "#F0F0F0" : "#010A26" }}
       //light : F0F0F0 ,dark:010A26
     >
       <Grid container direction={"column"} p={7} spacing={4}>

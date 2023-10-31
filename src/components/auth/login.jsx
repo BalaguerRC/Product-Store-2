@@ -172,12 +172,12 @@ const Login = () => {
                     )}
                   </Grid>
                   <Grid item>
-                    <Button variant="outlined" color="secondary" fullWidth>
+                    <Button variant="outlined" color="info" fullWidth>
                       Sing Up
                     </Button>
                   </Grid>
                   <Grid item>
-                    <Link>Forgot my password</Link>
+                    <Link >Forgot my password</Link>
                   </Grid>
                 </Grid>
               </form>

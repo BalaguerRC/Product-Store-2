@@ -8,14 +8,14 @@ const Search = () => {
   return (
     <div>
       <Grid container direction={"row"} justifyContent={"space-between"}>
-        <Grid item xs={2.5} sx={{ p: 4 }}>
+        <Grid item xs={2.5} sx={{ p: 4}}>
           <Box
             display={"flex"}
             flexDirection={"column"}
             justifyContent={"center"}
             textAlign={"center"}
           >
-            <Typography variant="h5" gutterBottom sx={{fontWeight: 700}}>
+            <Typography variant="h5" gutterBottom sx={{ fontWeight: 700 }}>
               Categories
             </Typography>
             <Divider />
@@ -49,5 +49,5 @@ const Search = () => {
 export default Search;
 
 export const RedirectSearch = () => {
-  return <Navigate to={"/search/all"} replace={true}/>;
+  return <Navigate to={"/search/all"} replace={true} />;
 };

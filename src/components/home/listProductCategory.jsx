@@ -21,11 +21,12 @@ import {
 } from "@mui/material";
 import desconocido from "../../assets/signo.png";
 import { Box } from "@mui/system";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import InfoIcon from "@mui/icons-material/Info";
 import { useNavigate } from "react-router-dom";
 import LatestProducts from "./GetLatest/latestProducts";
 import LatestVideoGames from "./GetLatest/latestVideoGames";
+import { ThemeContext } from "../../App";
 
 const productS2 = [
   {
@@ -55,6 +56,7 @@ const productS2 = [
 ];
 
 const ListProductCategory = () => {
+  const theme = useContext(ThemeContext);
   const getToken = localStorage.getItem("Token");
 
   const [open, setOpen] = useState(true);
@@ -131,7 +133,9 @@ const ListProductCategory = () => {
       <LatestVideoGames />
 
       <Box
-        sx={{ backgroundColor: "#010A26" }}
+        sx={{
+          backgroundColor: theme.theme === "light" ? "#F0F0F0" : "#010A26",
+        }}
         //light : F0F0F0 ,dark:010A26
       >
         <Grid

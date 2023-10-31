@@ -16,33 +16,58 @@ import Bills from "./pages/Products/bills";
 import Search, { RedirectSearch } from "./pages/Products/search";
 import ProductsCategory from "./pages/Products/productsCategory";
 import SearchProducts from "./components/products/searchProducts";
+import Test from "./pages/test";
+import { createContext, useState } from "react";
+
+export const ThemeContext = createContext(null);
 
 function App() {
   //const [count, setCount] = useState(0)
+  const [theme, settheme] = useState("light");
 
-  const changeTheme = 1;
+  const toggleTheme = () => {
+    settheme((curr) => (curr === "light" ? "dark" : "light"));
+  };
+
+  //const changeTheme = 1;
 
   const darkTheme = createTheme({
     palette: {
-      mode: changeTheme == 1 ? "dark" : "light",
+      mode: theme == "dark" ? "dark" : "light",
       primary: {
-        main: changeTheme == 1 ? "#F2059F " : "#F2059F",
-
+        main: theme == "dark" ? "#F2059F " : "#F2059F",
       },
       secondary: {
         main: "#FFD700",
       },
       info: {
-        main: "#E53935",
+        main: "#048ABF",
+      },
+      background: {
+        default: theme == "dark" ? "#141425" : "#ffffff",
+        paper: theme == "dark" ? "#18062C" : "#ECDBF7",
+      },
+    },
+  });
+
+  /*const darkTheme = createTheme({
+    palette: {
+      mode: changeTheme == 1 ? "dark" : "light",
+      primary: {
+        main: changeTheme == 1 ? "#F2059F " : "#F2059F",
+      },
+      secondary: {
+        main: "#FFD700",
+      },
+      info: {
+        main: "#048ABF",
       },
       background: {
         default: changeTheme == 1 ? "#141425" : "#ffffff",
         paper: changeTheme == 1 ? "#18062C" : "#ECDBF7",
-        
       },
-      
     },
-  });
+  });*/
 
   /**
   palette: {
@@ -63,7 +88,7 @@ function App() {
     },
    */
 
- /*palette: {
+  /*palette: {
       mode: changeTheme == 1 ? "dark" : "light",
       primary: {
         main: changeTheme == 1 ? "#6A0DAD" : "#81CC96",
@@ -79,37 +104,6 @@ function App() {
         paper: changeTheme == 1 ? "#212B36" : "#333333",
       },
     },*/
-  /**
-  palette: {
-      mode: changeTheme == 1 ? "dark" : "light",
-      primary: {
-        main: changeTheme == 1 ? "#6A0DAD" : "#81CC96",
-      },
-      secondary: {
-        main: "#FFD700",
-      },
-      info: {
-        main: "#E53935",
-      },
-      background: {
-        default: changeTheme == 1 ? "#1d212c" : "#F0F0F0",
-        paper: changeTheme == 1 ? "#212B36" : "#333333",
-      },
-    },
-   */
-
-  /**
-  palette: {
-      mode: changeTheme == 1 ? "dark" : "light",
-      primary: {
-        main: changeTheme == 1 ? "#81CC96" : "#6A0DAD",
-      },
-      background: {
-        default: changeTheme == 1 ? "#1d212c" : "#F0F0F0",
-        paper: changeTheme == 1 ? "#212B36" : "#333333",
-      },
-    },
-   */
 
   const router = createBrowserRouter([
     {
@@ -194,15 +188,21 @@ function App() {
       ],
     },
     {
+      path: "test",
+      element: <Test />,
+    },
+    {
       path: "*",
       element: <NotFound />,
     },
   ]);
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </ThemeContext.Provider>
   );
 }
 

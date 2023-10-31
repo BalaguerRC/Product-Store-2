@@ -23,16 +23,20 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import InfoIcon from "@mui/icons-material/Info";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import SearchIcon from "@mui/icons-material/Search";
+import { ThemeContext } from "../../App";
 
 const Header = () => {
+  //theme
+  const theme = useContext(ThemeContext);
+
   const getToken = localStorage.getItem("Token");
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -176,7 +180,12 @@ const Header = () => {
                       fullWidth
                       variant="outlined"
                       sx={{
-                        background: "#fff",
+                        background: "#F3F1F4",
+                        color: "#000",
+                        ".css-myb2s4-MuiInputBase-input-MuiOutlinedInput-input":
+                          {
+                            color: "#000",
+                          },
                       }}
                     />
                     <Button
@@ -198,6 +207,12 @@ const Header = () => {
                       <SearchIcon fontSize="small" />
                     </Button>
                   </ButtonGroup>
+                </Grid>
+                <Grid item>
+                  <IconButton onClick={theme.toggleTheme}
+                  >
+                    <Brightness4Icon />
+                  </IconButton>
                 </Grid>
                 <Grid item>
                   {getToken == null ? null : (
