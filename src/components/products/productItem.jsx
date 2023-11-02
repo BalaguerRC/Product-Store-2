@@ -15,9 +15,13 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import desconocido from "../../assets/signo.png";
+import { useContext } from "react";
+import { ThemeContext } from "../../App";
 
 const ProductItem = ({ id, name, price, category, image }) => {
   const navigate = useNavigate();
+
+  const theme = useContext(ThemeContext);
 
   return (
     <>
@@ -27,7 +31,8 @@ const ProductItem = ({ id, name, price, category, image }) => {
             maxWidth: 335,
             maxHeight: 500,
             borderRadius: 5,
-            //boxShadow: "0px 15px 25px 0px #C2C2C2",
+            boxShadow:
+              theme.theme === "light" ? "0px 15px 25px 0px #C2C2C2" : null,
           }}
         >
           <CardMedia

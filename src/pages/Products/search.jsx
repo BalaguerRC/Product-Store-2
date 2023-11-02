@@ -1,4 +1,13 @@
-import { Box, Button, Divider, Grid, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Divider,
+  Grid,
+  Paper,
+  Rating,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { Navigate, Outlet, useNavigate, useParams } from "react-router-dom";
 import Products from "../../components/products/products";
@@ -8,33 +17,80 @@ const Search = () => {
   return (
     <div>
       <Grid container direction={"row"} justifyContent={"space-between"}>
-        <Grid item xs={2.5} sx={{ p: 4}}>
+        <Grid item xs={2.5} sx={{ p: 4 }}>
           <Box
             display={"flex"}
             flexDirection={"column"}
             justifyContent={"center"}
-            textAlign={"center"}
           >
             <Typography variant="h5" gutterBottom sx={{ fontWeight: 700 }}>
               Categories
             </Typography>
             <Divider />
-            <Button
-              href="/search/all" /*onClick={() => navigate("/search/all")}*/
-            >
+            <Button onClick={() => navigate("/search/all")}>
               <Typography variant="caption">All</Typography>
             </Button>
-            <Button href="/search/video_games" /*onClick={() => navigate("")}*/>
+            <Button onClick={() => navigate("/search/video_games")}>
               <Typography variant="caption">Video Games</Typography>
             </Button>
-            <Button href="#" onClick={() => navigate("/search/clothes")}>
+            <Button onClick={() => navigate("/search/clothes")}>
               <Typography variant="caption">Clothes</Typography>
             </Button>
-            <Button href="#" onClick={() => navigate("/search/shoes")}>
+            <Button onClick={() => navigate("/search/shoes")}>
               <Typography variant="caption">Shoes</Typography>
             </Button>
-            <Button href="#" onClick={() => navigate("/search/electrics")}>
+            <Button onClick={() => navigate("/search/electrics")}>
               <Typography variant="caption">Electrics</Typography>
+            </Button>
+          </Box>
+          <Box
+            display={"flex"}
+            flexDirection={"column"}
+            justifyContent={"center"}
+          >
+            <Typography variant="h5" gutterBottom sx={{ fontWeight: 700 }}>
+              Price
+            </Typography>
+            <Divider />
+            <Button disabled>
+              <Typography variant="caption">Menos de $100</Typography>
+            </Button>
+            <Button disabled>
+              <Typography variant="caption">$100 - $200</Typography>
+            </Button>
+            <Button disabled>
+              <Typography variant="caption">$200 - $300</Typography>
+            </Button>
+            <Button disabled>
+              <Typography variant="caption">$400 - $500</Typography>
+            </Button>
+            <Button disabled>
+              <Typography variant="caption">Mas de $500</Typography>
+            </Button>
+          </Box>
+          <Box
+            display={"flex"}
+            flexDirection={"column"}
+            justifyContent={"center"}
+          >
+            <Typography variant="h5" gutterBottom sx={{ fontWeight: 700 }}>
+              Reviews
+            </Typography>
+            <Divider />
+            <Button >
+              <Rating name="read-only" value={5} readOnly disabled />
+            </Button>
+            <Button>
+              <Rating name="read-only" value={4} readOnly disabled />
+            </Button>
+            <Button>
+              <Rating name="read-only" value={3} readOnly disabled/>
+            </Button>
+            <Button>
+              <Rating name="read-only" value={2} readOnly disabled/>
+            </Button>
+            <Button>
+              <Rating name="read-only" value={1} readOnly disabled/>
             </Button>
           </Box>
         </Grid>
