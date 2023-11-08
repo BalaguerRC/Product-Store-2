@@ -1,10 +1,12 @@
 import {
+  Autocomplete,
   Box,
   Button,
   ButtonBase,
   Container,
   Divider,
   Grid,
+  TextField,
   Typography,
   styled,
 } from "@mui/material";
@@ -15,6 +17,7 @@ import Pc from "../../assets/Pc.png";
 import Pc1 from "../../assets/Pc1.jpg";
 import Pc2 from "../../assets/Pc2.png";
 import Pc3 from "../../assets/Pc3.jpg";
+import { useEffect, useState } from "react";
 
 const ButtonCustom = styled(Button)({
   fontWeight: 550,
@@ -62,7 +65,13 @@ const HomeView = () => {
                   consumables, video games and much more.{" "}
                 </Typography>
               </Box>
-              <Button variant="contained" sx={{ borderRadius: 3 }} href="/search/all">Buy Something</Button>
+              <Button
+                variant="contained"
+                sx={{ borderRadius: 3 }}
+                href="/search/all"
+              >
+                Buy Something
+              </Button>
             </Grid>
             <Grid item xs={4.5}>
               <img
@@ -79,7 +88,7 @@ const HomeView = () => {
           </Grid>
         </Box>
       </div>
-      <Divider sx={{ background: "#1d212c", height: 10 }}/>
+      <Divider sx={{ background: "#1d212c", height: 10 }} />
       <ListProductCategory />
     </div>
   );

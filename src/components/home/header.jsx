@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Autocomplete,
   Avatar,
   Backdrop,
   Badge,
@@ -90,8 +91,24 @@ const Header = () => {
       .then((resp) => resp.json())
       .then((data) => setCategory(data));
   };
+
+  /**autocomplete */
+  const [value, setValue] = useState();
+  const [products, setproducts] = useState([]);
+  const ProductAutoComplete = () => {
+    fetch(import.meta.env.VITE_URL + "/Products/search", {
+      method: "GET",
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setproducts(data);
+      })
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
     GetCategory();
+    ProductAutoComplete();
   }, []);
 
   return (
@@ -170,8 +187,32 @@ const Header = () => {
                         </MenuItem>
                       ))}
                     </Menu>
-
-                    <TextField
+                    <Autocomplete
+                      size="small"
+                      disablePortal
+                      variant="outlined"
+                      options={products && products.map((item) => item.name)}
+                      fullWidth
+                      sx={{
+                        background: "#F3F1F4",
+                        color: "#000",
+                        ".css-myb2s4-MuiInputBase-input-MuiOutlinedInput-input":
+                          {
+                            color: "#000",
+                          },
+                      }}
+                      renderInput={(p) => (
+                        <TextField
+                          {...p}
+                          label="Buscar Producto"
+                          onSelect={(event, newValue) => {
+                            setValue(event.target.value);
+                            setName(event.target.value);
+                          }}
+                        />
+                      )}
+                    />
+                    {/*<TextField
                       label={"Search"}
                       placeholder="search..."
                       size="small"
@@ -187,7 +228,7 @@ const Header = () => {
                             color: "#000",
                           },
                       }}
-                    />
+                    />*/}
                     <Button
                       href="#"
                       onClick={() =>
@@ -209,8 +250,7 @@ const Header = () => {
                   </ButtonGroup>
                 </Grid>
                 <Grid item>
-                  <IconButton onClick={theme.toggleTheme}
-                  >
+                  <IconButton onClick={theme.toggleTheme}>
                     <Brightness4Icon />
                   </IconButton>
                 </Grid>

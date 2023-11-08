@@ -121,9 +121,21 @@ const ListProductCategory = () => {
       })
       .catch((err) => console.log(err));
   };
+  const [latestShoes, setlatestShoes] = useState([]);
+  const getLatestShoes = () => {
+    fetch(import.meta.env.VITE_URL + "/LatestProducts/shoes", {
+      method: "GET",
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setlatestShoes(data);
+      })
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
     getLatestElectronics();
+    getLatestShoes();
   }, []);
 
   return (
@@ -328,14 +340,47 @@ const ListProductCategory = () => {
               }}
               cols={2}
             >
-              {productS2.map((item) => (
-                <ImageListItem key={item.id}>
+              {latestShoes == 0
+                ? productS2.map((item) => (
+                    <ImageListItem key={item.id}>
+                      <img
+                        src={`${
+                          item.img == null ? "/src/assets/signo.png" : item.img
+                        }?w=248&fit=crop&auto=format`}
+                        srcSet={`${
+                          item.img == null ? "/src/assets/signo.png" : item.img
+                        }?w=248&fit=crop&auto=format&dpr=2 2x`}
+                        alt={item.name}
+                        loading="lazy"
+                        style={{ borderRadius: 20 }}
+                      />
+                      <ImageListItemBar
+                        title={item.name}
+                        sx={{
+                          borderRadius: 5,
+                          borderStartEndRadius: 0,
+                          borderStartStartRadius: 0,
+                        }}
+                        actionIcon={
+                          <IconButton
+                            sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                            aria-label={`info about ${item.name}`}
+                          >
+                            <InfoIcon />
+                          </IconButton>
+                        }
+                      />
+                    </ImageListItem>
+                  ))
+                : null}
+              {latestShoes?.map((item, index) => (
+                <ImageListItem key={index}>
                   <img
                     src={`${
-                      item.img == null ? "/src/assets/signo.png" : item.img
+                      item.image == null ? "/src/assets/signo.png" : item.image
                     }?w=248&fit=crop&auto=format`}
                     srcSet={`${
-                      item.img == null ? "/src/assets/signo.png" : item.img
+                      item.image == null ? "/src/assets/signo.png" : item.image
                     }?w=248&fit=crop&auto=format&dpr=2 2x`}
                     alt={item.name}
                     loading="lazy"
@@ -352,6 +397,7 @@ const ListProductCategory = () => {
                       <IconButton
                         sx={{ color: "rgba(255, 255, 255, 0.54)" }}
                         aria-label={`info about ${item.name}`}
+                        href={"/searchP/details/" + item.id}
                       >
                         <InfoIcon />
                       </IconButton>
