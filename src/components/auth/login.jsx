@@ -111,7 +111,7 @@ const Login = () => {
               >
                 <Grid container direction={"column"} spacing={2}>
                   <Grid item>
-                    <Link underline="hover" href="/">
+                    <Link underline="hover" onClick={() => navigate("/")}>
                       <Typography variant="button" color={"text.secondary"}>
                         {"<-Home"}
                       </Typography>
@@ -177,7 +177,7 @@ const Login = () => {
                     </Button>
                   </Grid>
                   <Grid item>
-                    <Link >Forgot my password</Link>
+                    <Link>Forgot my password</Link>
                   </Grid>
                 </Grid>
               </form>

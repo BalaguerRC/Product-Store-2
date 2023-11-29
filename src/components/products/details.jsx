@@ -76,13 +76,8 @@ const Details = () => {
     setCantidad(cantidadTotal);
   };
 
-  const response = async () => {
-    await fetch(import.meta.env.VITE_URL + "/Products/" + id, {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + getToken,
-      },
-    })
+  const response = () => {
+    fetch(import.meta.env.VITE_URL + "/Products/" + id)
       .then((resp) => resp.json())
       .then((data) => {
         setProduct({
@@ -216,6 +211,7 @@ const Details = () => {
     };
     Post2(report);
   };
+
   const [openAlert, setOpenAlert] = useState(false);
   const BuyProduct = (id, name, cantidad, precio, id_user) => {
     setTimeout(() => {
@@ -396,7 +392,9 @@ const Details = () => {
                       variant="contained"
                       size="small"
                       onClick={() => {
-                        setOpenDialog(true);
+                        getDataUser?.name == null
+                          ? navigate("/login")
+                          : setOpenDialog(true);
                       }}
                       fullWidth
                     >
@@ -432,7 +430,9 @@ const Details = () => {
                           precio: Product.precio,
                           quantity: Product.quantity,
                         };
-                        setLoading2(!Loading2);
+                        getDataUser?.name == null
+                          ? navigate("/login")
+                          : setLoading2(!Loading2);
                         AddCarrito(data);
                       }}
                     >

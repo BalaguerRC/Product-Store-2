@@ -23,7 +23,22 @@ export const ThemeContext = createContext(null);
 
 function App() {
   //const [count, setCount] = useState(0)
-  const [theme, settheme] = useState("light");
+  /**
+  const themeColor = localStorage.getItem("themeColor");
+
+  if (themeColor == null) localStorage.setItem("themeColor", "dark");
+
+  const [theme, settheme] = useState(themeColor);
+
+  const toggleTheme = () => {
+    settheme((curr) =>
+      curr === "light"
+        ? localStorage.setItem("themeColor", "dark")
+        : localStorage.setItem("themeColor", "light")
+    );
+  };
+   */
+  const [theme, settheme] = useState("dark");
 
   const toggleTheme = () => {
     settheme((curr) => (curr === "light" ? "dark" : "light"));

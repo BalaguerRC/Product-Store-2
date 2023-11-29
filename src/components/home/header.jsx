@@ -133,7 +133,7 @@ const Header = () => {
               >
                 <Grid item>
                   <Button
-                    href="/"
+                    onClick={() => navigate("/")}
                     sx={{ fontWeight: 700, fontSize: 18, color: "#fff" }}
                   >
                     ProductS
@@ -250,7 +250,7 @@ const Header = () => {
                   </ButtonGroup>
                 </Grid>
                 <Grid item>
-                  <IconButton onClick={theme.toggleTheme}>
+                  <IconButton onClick={theme?.toggleTheme}>
                     <Brightness4Icon />
                   </IconButton>
                 </Grid>
@@ -379,7 +379,7 @@ const Header = () => {
                       </IconButton>
                     </Grid>
                     <Grid item>
-                      <Button>ProductS</Button>
+                      <Button onClick={()=>navigate("/")}>ProductS</Button>
                     </Grid>
                     <Grid item>
                       {getToken == null ? (

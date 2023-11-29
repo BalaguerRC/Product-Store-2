@@ -73,50 +73,177 @@ const Home = () => {
   return (
     <div>
       <Header />
+
       <Grid
         paddingTop={9}
         sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
       >
         <Outlet />
       </Grid>
-      <footer style={{ height: "100%",padding:10 }}>
-        <Grid
-          container
-          direction={"row"}
-          justifyContent={"center"}
-          spacing={20}
-          p={2}
-        >
-          <Grid item>
-            <Box display={"flex"} flexDirection={"column"}>
-              <Typography variant="h6" color={"text.secondary"} fontWeight={800} gutterBottom>Categorys</Typography>
-              <Typography variant="subtitle2" color={"text.secondary"}>VideoGames</Typography>
-              <Typography variant="subtitle2" color={"text.secondary"}>Electronics</Typography>
-              <Typography variant="subtitle2" color={"text.secondary"}>Shoes</Typography>
-              <Typography variant="subtitle2" color={"text.secondary"}>Clothes</Typography>
-            </Box>
+
+      <Box
+        sx={{
+          display: { xs: "none", md: "grid" },
+        }}
+      >
+        <footer style={{ height: "100%", padding: 10 }}>
+          <Grid
+            container
+            direction={"row"}
+            justifyContent={"center"}
+            spacing={20}
+            p={2}
+          >
+            <Grid item>
+              <Box display={"flex"} flexDirection={"column"}>
+                <Typography
+                  variant="h6"
+                  color={"text.secondary"}
+                  fontWeight={800}
+                  gutterBottom
+                >
+                  Categorys
+                </Typography>
+                <Typography variant="subtitle2" color={"text.secondary"}>
+                  VideoGames
+                </Typography>
+                <Typography variant="subtitle2" color={"text.secondary"}>
+                  Electronics
+                </Typography>
+                <Typography variant="subtitle2" color={"text.secondary"}>
+                  Shoes
+                </Typography>
+                <Typography variant="subtitle2" color={"text.secondary"}>
+                  Clothes
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item>
+              <Box display={"flex"} flexDirection={"column"}>
+                <Typography
+                  variant="h6"
+                  color={"text.secondary"}
+                  fontWeight={800}
+                  gutterBottom
+                >
+                  Company
+                </Typography>
+                <Typography variant="subtitle2" color={"text.secondary"}>
+                  About us
+                </Typography>
+                <Typography variant="subtitle2" color={"text.secondary"}>
+                  Contact
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item>
+              <Box display={"flex"} flexDirection={"column"}>
+                <Typography
+                  variant="h6"
+                  color={"text.secondary"}
+                  fontWeight={800}
+                  gutterBottom
+                >
+                  Legal
+                </Typography>
+                <Typography variant="subtitle2" color={"text.secondary"}>
+                  Terms of use
+                </Typography>
+                <Typography variant="subtitle2" color={"text.secondary"}>
+                  Privacy Policy
+                </Typography>
+              </Box>
+            </Grid>
           </Grid>
-          <Grid item>
-            <Box display={"flex"} flexDirection={"column"}>
-              <Typography variant="h6" color={"text.secondary"} fontWeight={800} gutterBottom>Company</Typography>
-              <Typography variant="subtitle2" color={"text.secondary"}>About us</Typography>
-              <Typography variant="subtitle2" color={"text.secondary"}>Contact</Typography>
-            </Box>
+          <Box sx={{ textAlign: "center", position: "static" }}>
+            <Typography fontWeight={600}>
+              Copyright © 2023 - All right reserved by NOTHING
+            </Typography>
+          </Box>
+        </footer>
+      </Box>
+
+      <Box
+        sx={{
+          display: { xs: "grid", md: "none" },
+        }}
+      >
+        <footer style={{ height: "100%", padding: 10 }}>
+          <Grid
+            container
+            direction={"row"}
+            justifyContent={"center"}
+            spacing={5}
+            p={5}
+          >
+            <Grid item>
+              <Box display={"flex"} flexDirection={"column"}>
+                <Typography
+                  variant="h6"
+                  color={"text.secondary"}
+                  fontWeight={800}
+                  gutterBottom
+                >
+                  Categorys
+                </Typography>
+                <Typography variant="subtitle2" color={"text.secondary"}>
+                  VideoGames
+                </Typography>
+                <Typography variant="subtitle2" color={"text.secondary"}>
+                  Electronics
+                </Typography>
+                <Typography variant="subtitle2" color={"text.secondary"}>
+                  Shoes
+                </Typography>
+                <Typography variant="subtitle2" color={"text.secondary"}>
+                  Clothes
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item>
+              <Box display={"flex"} flexDirection={"column"}>
+                <Typography
+                  variant="h6"
+                  color={"text.secondary"}
+                  fontWeight={800}
+                  gutterBottom
+                >
+                  Company
+                </Typography>
+                <Typography variant="subtitle2" color={"text.secondary"}>
+                  About us
+                </Typography>
+                <Typography variant="subtitle2" color={"text.secondary"}>
+                  Contact
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item>
+              <Box display={"flex"} flexDirection={"column"}>
+                <Typography
+                  variant="h6"
+                  color={"text.secondary"}
+                  fontWeight={800}
+                  gutterBottom
+                >
+                  Legal
+                </Typography>
+                <Typography variant="subtitle2" color={"text.secondary"}>
+                  Terms of use
+                </Typography>
+                <Typography variant="subtitle2" color={"text.secondary"}>
+                  Privacy Policy
+                </Typography>
+              </Box>
+            </Grid>
           </Grid>
-          <Grid item>
-            <Box display={"flex"} flexDirection={"column"}>
-              <Typography variant="h6" color={"text.secondary"} fontWeight={800} gutterBottom>Legal</Typography>
-              <Typography variant="subtitle2" color={"text.secondary"}>Terms of use</Typography>
-              <Typography variant="subtitle2" color={"text.secondary"}>Privacy Policy</Typography>
-            </Box>
-          </Grid>
-        </Grid>
-        <Box sx={{ textAlign: "center", position: "static" }}>
-          <Typography fontWeight={600}>
-            Copyright © 2023 - All right reserved by NOTHING
-          </Typography>
-        </Box>
-      </footer>
+          <Box sx={{ textAlign: "center", position: "static" }}>
+            <Typography fontWeight={600}>
+              Copyright © 2023 - All right reserved by NOTHING
+            </Typography>
+          </Box>
+        </footer>
+      </Box>
     </div>
   );
 };

@@ -18,6 +18,7 @@ import Pc1 from "../../assets/Pc1.jpg";
 import Pc2 from "../../assets/Pc2.png";
 import Pc3 from "../../assets/Pc3.jpg";
 import { useEffect, useState } from "react";
+import HomeR from "./responsive/homeR";
 
 const ButtonCustom = styled(Button)({
   fontWeight: 550,
@@ -44,52 +45,74 @@ const HomeView = () => {
   //242933
   return (
     <div>
-      <div style={{ width: "100%", height: "auto" }}>
-        <Box>
-          <Grid
-            container
-            direction={"row"}
-            justifyContent={"space-between"}
-            alignItems={"center"}
-            spacing={3}
-            sx={{ p: 8 }}
-          >
-            <Grid item xs={5.5}>
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Typography variant="h3" sx={{ fontWeight: 900 }} gutterBottom>
-                  Welcome to ProductS
-                </Typography>
-                <Typography variant="h6" color={"text.secondary"} gutterBottom>
-                  On this page you will find everything you need at your
-                  fingertips. From household items, as well as tools,
-                  consumables, video games and much more.{" "}
-                </Typography>
-              </Box>
-              <Button
-                variant="contained"
-                sx={{ borderRadius: 3 }}
-                href="/search/all"
-              >
-                Buy Something
-              </Button>
+      <Box
+        sx={{
+          display: { xs: "none", md: "grid" },
+        }}
+      >
+        <div style={{ width: "100%", height: "auto" }}>
+          <Box>
+            <Grid
+              container
+              direction={"row"}
+              justifyContent={"space-between"}
+              alignItems={"center"}
+              spacing={3}
+              sx={{ p: 8 }}
+            >
+              <Grid item xs={5.5}>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <Typography
+                    variant="h3"
+                    sx={{ fontWeight: 900 }}
+                    gutterBottom
+                  >
+                    Welcome to ProductS
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    color={"text.secondary"}
+                    gutterBottom
+                  >
+                    On this page you will find everything you need at your
+                    fingertips. From household items, as well as tools,
+                    consumables, video games and much more.{" "}
+                  </Typography>
+                </Box>
+                <Button
+                  variant="contained"
+                  sx={{ borderRadius: 3 }}
+                  href="/search/all"
+                >
+                  Buy Something
+                </Button>
+              </Grid>
+              <Grid item xs={4.5}>
+                <img
+                  src={Pc}
+                  alt="test"
+                  style={{
+                    borderRadius: 10,
+                    width: HeiWidh,
+                    height: HeiWidh,
+                    boxShadow: "13px 15px 0px 0px #000",
+                  }}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={4.5}>
-              <img
-                src={Pc}
-                alt="test"
-                style={{
-                  borderRadius: 10,
-                  width: HeiWidh,
-                  height: HeiWidh,
-                  boxShadow: "13px 15px 0px 0px #000",
-                }}
-              />
-            </Grid>
-          </Grid>
-        </Box>
-      </div>
-      <Divider sx={{ background: "#1d212c", height: 10 }} />
-      <ListProductCategory />
+          </Box>
+        </div>
+        <Divider sx={{ background: "#1d212c", height: 10 }} />
+        <ListProductCategory />
+      </Box>
+
+      <Box
+        sx={{
+          display: { xs: "grid", md: "none" },
+        }}
+      >
+        <HomeR />
+      </Box>
     </div>
   );
 };

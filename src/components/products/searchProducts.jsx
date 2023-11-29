@@ -115,9 +115,7 @@ const SearchProducts = () => {
 
   const response = () => {
     //setLoading(false)
-    fetch(import.meta.env.VITE_URL + "/ProductsPag/getProductClient", {
-      method: "GET",
-    })
+    fetch(import.meta.env.VITE_URL + "/ProductsPag/getProductClient")
       .then((resp) => resp.json())
       .then((data) => {
         setProducts(data.data);
@@ -125,7 +123,7 @@ const SearchProducts = () => {
       })
       .catch((err) => {
         console.log(err);
-        seTError(!Error);
+        //seTError(!Error);
       });
   };
 
